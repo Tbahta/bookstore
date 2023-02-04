@@ -21,6 +21,7 @@ define("ASSETS", str_replace("app/core","public/assets",$path)); //http://localh
 
 //debug for dev purposes
 // echo "Root is = ". ROOT . "<br />";
+// echo "Asset is = ". ASSETS . "<br />";
 define('DEBUG',true);
 if(DEBUG){
     ini_set("display_errors",1);

@@ -1,4 +1,4 @@
-<!--=================================
+        <!--=================================
         Brands Slider
         ===================================== -->
         <section class="section-margin">
@@ -87,6 +87,9 @@
                             <li><a href="">Stores</a></li>
                             <li><a href="">Contact us</a></li>
                             <li><a href="">Sitemap</a></li>
+                            <?php if(isset($_SESSION['logged']) && $_SESSION['logged']['role'] == "admin"):?>
+                             <li><a href="<?=ROOT?>admin">Admin</a></li>
+                            <?php endif;?>
                         </ul>
                     </div>
                 </div>

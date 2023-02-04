@@ -1,15 +1,21 @@
+
+<?php
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+?>
 <!DOCTYPE html>
 <html lang="zxx">
 
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Pustok - Book Store HTML Template</title>
+    <title>DENSA BOOK STORE | <?php echo $data['Page_title'];?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Use Minified Plugins Version For Fast Page Load -->
     <link rel="stylesheet" type="text/css" media="screen" href="<?=ASSETS?>store/css/plugins.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="<?=ASSETS?>store/css/main.css" />
-    <link rel="shortcut icon" type="image/x-icon" href="image/favicon.ico">
+    <!-- <link rel="shortcut icon" type="image/x-icon" href="<?=ASSETS?>store/image/favicon.ico"> -->
 </head>
 
 <body>
@@ -19,7 +25,7 @@
                 <div class="container">
                     <div class="row align-items-center">
                         <div class="col-lg-3">
-                            <a href="<?=ROOT?>index" class="site-brand">
+                            <a href="<?=ROOT?>" class="site-brand">
                                 <img src="<?=ASSETS?>store/image/logo.png" alt="">
                             </a>
                         </div>
@@ -33,8 +39,23 @@
                             <div class="main-navigation flex-lg-right">
                                 <div class="cart-widget">
                                     <div class="login-block">
-                                        <a href="<?=ROOT?>login" class="font-weight-bold">Login</a> <br>
-                                        <span>or</span><a href="<?=ROOT?>register">Register</a>
+                                    <ul class="nav justify-content-center">
+                                    <?php if(isset($data['user_email'])):?>  
+                                        <li class="nav-item">
+                                            <a  href="<?=ROOT?>signout">Logout  </a> 
+                                        </li>
+                                        <li class="nav-item">
+                                            <span>&#160;</span>   <a  href="<?=ROOT?>profile">My Account  </a>
+                                        </li>
+                                    <?php else:?>
+                                    <li class="nav-item">
+                                        <a href="<?=ROOT?>signin">Login</a> <br>
+                                    </li>
+                                    <li class="nav-item">
+                                        <span>&#160;</span><a href="<?=ROOT?>signup">Register</a>
+                                    </li>
+                                    <?php endif;?>
+                                    </ul>
                                     </div>
                                     <div class="cart-block">
                                         <div class="cart-total">
@@ -66,9 +87,9 @@
                                             </div>
                                             <div class=" single-cart-block ">
                                                 <div class="btn-block">
-                                                    <a href="<?=ROOT?>cart" class="btn">View Cart <i
+                                                    <a href="cart.html" class="btn">View Cart <i
                                                             class="fas fa-chevron-right"></i></a>
-                                                    <a href="<?=ROOT?>checkout" class="btn btn--primary">Check Out <i
+                                                    <a href="checkout.html" class="btn btn--primary">Check Out <i
                                                             class="fas fa-chevron-right"></i></a>
                                                 </div>
                                             </div>
@@ -210,7 +231,15 @@
                             <div class="main-navigation flex-lg-right">
                                 <ul class="main-menu menu-right main-menu--white li-last-0">
                                     <li class="menu-item has-children">
-                                        <a href="javascript:void(0)">Home</a>
+                                        <a href="javascript:void(0)">Home <i
+                                                class="fas fa-chevron-down dropdown-arrow"></i></a>
+                                        <ul class="sub-menu">
+                                            <li> <a href="index.html">Home One</a></li>
+                                            <li> <a href="index-2.html">Home Two</a></li>
+                                            <li> <a href="index-3.html">Home Three</a></li>
+                                            <li> <a href="index-4.html">Home Four</a></li>
+                                            <li> <a href="index-5.html">Home Five</a></li>
+                                        </ul>
                                     </li>
                                     <!-- Shop -->
                                     <li class="menu-item has-children mega-menu">
@@ -220,17 +249,17 @@
                                             <li class="cus-col-25">
                                                 <h3 class="menu-title"><a href="javascript:void(0)">Shop Grid </a></h3>
                                                 <ul class="mega-single-block">
-                                                    <li><a href="<?=ROOT?>shop-grid">Fullwidth</a></li>
-                                                    <li><a href="<?=ROOT?>shop-grid-left-sidebar">left Sidebar</a></li>
-                                                    <li><a href="<?=ROOT?>shop-grid-right-sidebar">Right Sidebar</a></li>
+                                                    <li><a href="shop-grid.html">Fullwidth</a></li>
+                                                    <li><a href="shop-grid-left-sidebar.html">left Sidebar</a></li>
+                                                    <li><a href="shop-grid-right-sidebar.html">Right Sidebar</a></li>
                                                 </ul>
                                             </li>
                                             <li class="cus-col-25">
                                                 <h3 class="menu-title"> <a href="javascript:void(0)">Shop List</a></h3>
                                                 <ul class="mega-single-block">
                                                     <li><a href="<?=ROOT?>shop-list">Fullwidth</a></li>
-                                                    <li><a href="<?=ROOT?>shop-list-left-sidebar">left Sidebar</a></li>
-                                                    <li><a href="<?=ROOT?>shop-list-right-sidebar">Right Sidebar</a></li>
+                                                    <li><a href="shop-list-left-sidebar.html">left Sidebar</a></li>
+                                                    <li><a href="shop-list-right-sidebar.html">Right Sidebar</a></li>
                                                 </ul>
                                             </li>
                                             <li class="cus-col-25">
@@ -238,11 +267,11 @@
                                                         1</a></h3>
                                                 <ul class="mega-single-block">
                                                     <li><a href="<?=ROOT?>product-details">Product Details Page</a></li>
-                                                    <li><a href="<?=ROOT?>product-details-affiliate">Product Details
+                                                    <li><a href="product-details-affiliate.html">Product Details
                                                             Affiliate</a></li>
-                                                    <li><a href="<?=ROOT?>product-details-group">Product Details Group</a>
+                                                    <li><a href="product-details-group.html">Product Details Group</a>
                                                     </li>
-                                                    <li><a href="<?=ROOT?>product-details-variable">Product Details
+                                                    <li><a href="product-details-variable.html">Product Details
                                                             Variables</a></li>
                                                 </ul>
                                             </li>
@@ -250,13 +279,13 @@
                                                 <h3 class="menu-title"><a href="javascript:void(0)">Product Details
                                                         2</a></h3>
                                                 <ul class="mega-single-block">
-                                                    <li><a href="<?=ROOT?>product-details-left-thumbnail">left Thumbnail</a>
+                                                    <li><a href="product-details-left-thumbnail.html">left Thumbnail</a>
                                                     </li>
-                                                    <li><a href="<?=ROOT?>product-details-right-thumbnail">Right
+                                                    <li><a href="product-details-right-thumbnail.html">Right
                                                             Thumbnail</a></li>
-                                                    <li><a href="<?=ROOT?>product-details-left-gallery">Left Gallery</a>
+                                                    <li><a href="product-details-left-gallery.html">Left Gallery</a>
                                                     </li>
-                                                    <li><a href="<?=ROOT?>product-details-right-gallery">Right Gallery</a>
+                                                    <li><a href="product-details-right-gallery.html">Right Gallery</a>
                                                     </li>
                                                 </ul>
                                             </li>
@@ -267,14 +296,16 @@
                                         <a href="javascript:void(0)">Pages <i
                                                 class="fas fa-chevron-down dropdown-arrow"></i></a>
                                         <ul class="sub-menu">
-                                            <li><a href="<?=ROOT?>cart">Cart</a></li>
-                                            <li><a href="<?=ROOT?>checkout">Checkout</a></li>
-                                            <li><a href="<?=ROOT?>compare">Compare</a></li>
-                                            <li><a href="<?=ROOT?>wishlist">Wishlist</a></li>
-                                            <li><a href="<?=ROOT?>register">Register</a></li>
-                                            <li><a href="<?=ROOT?>my-account">My Account</a></li>
-                                            <li><a href="<?=ROOT?>order-complete">Order Complete</a></li>
-
+                                            <li><a href="cart.html">Cart</a></li>
+                                            <li><a href="checkout.html">Checkout</a></li>
+                                            <li><a href="compare.html">Compare</a></li>
+                                            <li><a href="wishlist.html">Wishlist</a></li>
+                                            <li><a href="<?=ROOT?>signin">Login </a></li>
+                                            <li><a href="<?=ROOT?>signup">Register</a></li>
+                                            <li><a href="my-account.html">My Account</a></li>
+                                            <li><a href="order-complete.html">Order Complete</a></li>
+                                            <li><a href="faq.html">Faq</a></li>
+                                            <li><a href="contact-2.html">contact 02</a></li>
                                         </ul>
                                     </li>
                                     <!-- Blog -->
@@ -285,34 +316,34 @@
                                             <li class="cus-col-33">
                                                 <h3 class="menu-title"><a href="javascript:void(0)">Blog Grid</a></h3>
                                                 <ul class="mega-single-block">
-                                                    <li><a href="<?=ROOT?>blog">Full Widh (Default)</a></li>
-                                                    <li><a href="<?=ROOT?>blog-left-sidebar">left Sidebar</a></li>
-                                                    <li><a href="<?=ROOT?>blog-right-sidebar">Right Sidebar</a></li>
+                                                    <li><a href="blog.html">Full Widh (Default)</a></li>
+                                                    <li><a href="blog-left-sidebar.html">left Sidebar</a></li>
+                                                    <li><a href="blog-right-sidebar.html">Right Sidebar</a></li>
                                                 </ul>
                                             </li>
                                             <li class="cus-col-33">
                                                 <h3 class="menu-title"><a href="javascript:void(0)">Blog List </a></h3>
                                                 <ul class="mega-single-block">
-                                                    <!-- <li><a href="blog-list">Full Widh (Default)</a></li> -->
-                                                    <li><a href="<?=ROOT?>blog-list-left-sidebar">left Sidebar</a></li>
-                                                    <li><a href="<?=ROOT?>blog-list-right-sidebar">Right Sidebar</a></li>
+                                                    <!-- <li><a href="blog-list.html">Full Widh (Default)</a></li> -->
+                                                    <li><a href="blog-list-left-sidebar.html">left Sidebar</a></li>
+                                                    <li><a href="blog-list-right-sidebar.html">Right Sidebar</a></li>
                                                 </ul>
                                             </li>
                                             <li class="cus-col-33">
                                                 <h3 class="menu-title"><a href="javascript:void(0)">Blog Details</a>
                                                 </h3>
                                                 <ul class="mega-single-block">
-                                                    <li><a href="<?=ROOT?>blog-details">Image Format (Default)</a></li>
-                                                    <li><a href="<?=ROOT?>blog-details-gallery">Gallery Format</a></li>
-                                                    <li><a href="<?=ROOT?>blog-details-audio">Audio Format</a></li>
-                                                    <li><a href="<?=ROOT?>blog-details-video">Video Format</a></li>
-                                                    <li><a href="<?=ROOT?>blog-details-left-sidebar">left Sidebar</a></li>
+                                                    <li><a href="blog-details.html">Image Format (Default)</a></li>
+                                                    <li><a href="blog-details-gallery.html">Gallery Format</a></li>
+                                                    <li><a href="blog-details-audio.html">Audio Format</a></li>
+                                                    <li><a href="blog-details-video.html">Video Format</a></li>
+                                                    <li><a href="blog-details-left-sidebar.html">left Sidebar</a></li>
                                                 </ul>
                                             </li>
                                         </ul>
                                     </li>
                                     <li class="menu-item">
-                                        <a href="<?=ROOT?>contact">Contact</a>
+                                        <a href="contact.html">Contact</a>
                                     </li>
                                 </ul>
                             </div>
@@ -326,7 +357,7 @@
                 <div class="container">
                     <div class="row align-items-sm-end align-items-center">
                         <div class="col-md-4 col-7">
-                            <a href="<?=ROOT?>index" class="site-brand">
+                            <a href="index.html" class="site-brand">
                                 <img src="<?=ASSETS?>store/image/logo.png" alt="">
                             </a>
                         </div>
@@ -445,7 +476,7 @@
                             <div class="mobile-header-btns header-top-widget">
                                 <ul class="header-links">
                                     <li class="sin-link">
-                                        <a href="<?=ROOT?>cart" class="cart-link link-icon"><i class="ion-bag"></i></a>
+                                        <a href="cart.html" class="cart-link link-icon"><i class="ion-bag"></i></a>
                                     </li>
                                     <li class="sin-link">
                                         <a href="javascript:" class="link-icon hamburgur-icon off-canvas-btn"><i
@@ -478,6 +509,13 @@
                             <ul class="mobile-menu main-mobile-menu">
                                 <li class="menu-item-has-children">
                                     <a href="#">Home</a>
+                                    <ul class="sub-menu">
+                                        <li> <a href="index.html">Home One</a></li>
+                                        <li> <a href="index-2.html">Home Two</a></li>
+                                        <li> <a href="index-3.html">Home Three</a></li>
+                                        <li> <a href="index-4.html">Home Four</a></li>
+                                        <li> <a href="index-5.html">Home Five</a></li>
+                                    </ul>
                                 </li>
                                 <li class="menu-item-has-children">
                                     <a href="#">Blog</a>
@@ -485,27 +523,27 @@
                                         <li class="menu-item-has-children">
                                             <a href="#">Blog Grid</a>
                                             <ul class="sub-menu">
-                                                <li><a href="<?=ROOT?>blog">Full Widh (Default)</a></li>
-                                                <li><a href="<?=ROOT?>blog-left-sidebar">left Sidebar</a></li>
-                                                <li><a href="<?=ROOT?>blog-right-sidebar">Right Sidebar</a></li>
+                                                <li><a href="blog.html">Full Widh (Default)</a></li>
+                                                <li><a href="blog-left-sidebar.html">left Sidebar</a></li>
+                                                <li><a href="blog-right-sidebar.html">Right Sidebar</a></li>
                                             </ul>
                                         </li>
                                         <li class="menu-item-has-children">
                                             <a href="#">Blog List</a>
                                             <ul class="sub-menu">
-                                                <li><a href="<?=ROOT?>blog-list">Full Widh (Default)</a></li>
-                                                <li><a href="<?=ROOT?>blog-list-left-sidebar">left Sidebar</a></li>
-                                                <li><a href="<?=ROOT?>blog-list-right-sidebar">Right Sidebar</a></li>
+                                                <li><a href="blog-list.html">Full Widh (Default)</a></li>
+                                                <li><a href="blog-list-left-sidebar.html">left Sidebar</a></li>
+                                                <li><a href="blog-list-right-sidebar.html">Right Sidebar</a></li>
                                             </ul>
                                         </li>
                                         <li class="menu-item-has-children">
                                             <a href="#">Blog Details</a>
                                             <ul class="sub-menu">
-                                                <li><a href="<?=ROOT?>blog-details">Image Format (Default)</a></li>
-                                                <li><a href="<?=ROOT?>blog-details-gallery">Gallery Format</a></li>
-                                                <li><a href="<?=ROOT?>blog-details-audio">Audio Format</a></li>
-                                                <li><a href="<?=ROOT?>blog-details-video">Video Format</a></li>
-                                                <li><a href="<?=ROOT?>blog-details-left-sidebar">left Sidebar</a></li>
+                                                <li><a href="blog-details.html">Image Format (Default)</a></li>
+                                                <li><a href="blog-details-gallery.html">Gallery Format</a></li>
+                                                <li><a href="blog-details-audio.html">Audio Format</a></li>
+                                                <li><a href="blog-details-video.html">Video Format</a></li>
+                                                <li><a href="blog-details-left-sidebar.html">left Sidebar</a></li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -516,39 +554,39 @@
                                         <li class="menu-item-has-children">
                                             <a href="#">Shop Grid</a>
                                             <ul class="sub-menu">
-                                                <li><a href="<?=ROOT?>shop-grid">Fullwidth</a></li>
-                                                <li><a href="<?=ROOT?>shop-grid-left-sidebar">left Sidebar</a></li>
-                                                <li><a href="<?=ROOT?>shop-grid-right-sidebar">Right Sidebar</a></li>
+                                                <li><a href="shop-grid.html">Fullwidth</a></li>
+                                                <li><a href="shop-grid-left-sidebar.html">left Sidebar</a></li>
+                                                <li><a href="shop-grid-right-sidebar.html">Right Sidebar</a></li>
                                             </ul>
                                         </li>
                                         <li class="menu-item-has-children">
                                             <a href="#">Shop List</a>
                                             <ul class="sub-menu">
                                                 <li><a href="<?=ROOT?>shop-list">Fullwidth</a></li>
-                                                <li><a href="<?=ROOT?>shop-list-left-sidebar">left Sidebar</a></li>
-                                                <li><a href="<?=ROOT?>shop-list-right-sidebar">Right Sidebar</a></li>
+                                                <li><a href="shop-list-left-sidebar.html">left Sidebar</a></li>
+                                                <li><a href="shop-list-right-sidebar.html">Right Sidebar</a></li>
                                             </ul>
                                         </li>
                                         <li class="menu-item-has-children">
                                             <a href="#">Product Details 1</a>
                                             <ul class="sub-menu">
                                                 <li><a href="<?=ROOT?>product-details">Product Details Page</a></li>
-                                                <li><a href="<?=ROOT?>product-details-affiliate">Product Details
+                                                <li><a href="product-details-affiliate.html">Product Details
                                                         Affiliate</a></li>
-                                                <li><a href="<?=ROOT?>product-details-group">Product Details Group</a></li>
-                                                <li><a href="<?=ROOT?>product-details-variable">Product Details
+                                                <li><a href="product-details-group.html">Product Details Group</a></li>
+                                                <li><a href="product-details-variable.html">Product Details
                                                         Variables</a></li>
                                             </ul>
                                         </li>
                                         <li class="menu-item-has-children">
                                             <a href="#">Product Details 2</a>
                                             <ul class="sub-menu">
-                                                <li><a href="product-details-left-thumbnail">left Thumbnail</a>
+                                                <li><a href="product-details-left-thumbnail.html">left Thumbnail</a>
                                                 </li>
-                                                <li><a href="product-details-right-thumbnail">Right Thumbnail</a>
+                                                <li><a href="product-details-right-thumbnail.html">Right Thumbnail</a>
                                                 </li>
-                                                <li><a href="product-details-left-gallery">Left Gallery</a></li>
-                                                <li><a href="product-details-right-gallery">Right Gallery</a></li>
+                                                <li><a href="product-details-left-gallery.html">Left Gallery</a></li>
+                                                <li><a href="product-details-right-gallery.html">Right Gallery</a></li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -556,17 +594,19 @@
                                 <li class="menu-item-has-children">
                                     <a href="#">Pages</a>
                                     <ul class="sub-menu">
-                                        <li><a href="<?=ROOT?>cart">Cart</a></li>
-                                        <li><a href="<?=ROOT?>checkout">Checkout</a></li>
-                                        <li><a href="<?=ROOT?>compare">Compare</a></li>
-                                        <li><a href="<?=ROOT?>wishlist">Wishlist</a></li>
-                                        <li><a href="<?=ROOT?>register">Register</a></li>
-                                        <li><a href="<?=ROOT?>my-account">My Account</a></li>
-                                        <li><a href="<?=ROOT?>order-complete">Order Complete</a></li>
-
+                                        <li><a href="cart.html">Cart</a></li>
+                                        <li><a href="checkout.html">Checkout</a></li>
+                                        <li><a href="compare.html">Compare</a></li>
+                                        <li><a href="wishlist.html">Wishlist</a></li>
+                                        <li><a href="<?=ROOT?>signin">Login </a></li>
+                                        <li><a href="<?=ROOT?>signup">Register</a></li>
+                                        <li><a href="my-account.html">My Account</a></li>
+                                        <li><a href="order-complete.html">Order Complete</a></li>
+                                        <li><a href="faq.html">Faq</a></li>
+                                        <li><a href="contact-2.html">contact 02</a></li>
                                     </ul>
                                 </li>
-                                <li><a href="<?=ROOT?>contact">Contact</a></li>
+                                <li><a href="contact.html">Contact</a></li>
                             </ul>
                         </nav>
                         <!-- mobile menu navigation end -->
@@ -577,8 +617,8 @@
                             <li class="menu-item-has-children">
                                 <a href="#">Currency - USD $ <i class="fas fa-angle-down"></i></a>
                                 <ul class="sub-menu">
-                                    <li> <a href="<?=ROOT?>cart">USD $</a></li>
-                                    <li> <a href="<?=ROOT?>checkout">EUR €</a></li>
+                                    <li> <a href="cart.html">USD $</a></li>
+                                    <li> <a href="checkout.html">EUR €</a></li>
                                 </ul>
                             </li>
                             <li class="menu-item-has-children">
@@ -621,16 +661,23 @@
             <div class="container d-none d-lg-block">
                 <div class="row align-items-center">
                     <div class="col-lg-4">
-                        <a href="index" class="site-brand">
-                            <img src="image/logo.png" alt="">
+                        <a href="index.html" class="site-brand">
+                            <img src="<?=ASSETS?>store/image/logo.png" alt="">
                         </a>
                     </div>
                     <div class="col-lg-8">
                         <div class="main-navigation flex-lg-right">
                             <ul class="main-menu menu-right ">
                                 <li class="menu-item has-children">
-                                    <a href="javascript:void(0)">Home </a>
-
+                                    <a href="javascript:void(0)">Home <i
+                                            class="fas fa-chevron-down dropdown-arrow"></i></a>
+                                    <ul class="sub-menu">
+                                        <li> <a href="index.html">Home One</a></li>
+                                        <li> <a href="index-2.html">Home Two</a></li>
+                                        <li> <a href="index-3.html">Home Three</a></li>
+                                        <li> <a href="index-4.html">Home Four</a></li>
+                                        <li> <a href="index-5.html">Home Five</a></li>
+                                    </ul>
                                 </li>
                                 <!-- Shop -->
                                 <li class="menu-item has-children mega-menu">
@@ -640,17 +687,17 @@
                                         <li class="cus-col-25">
                                             <h3 class="menu-title"><a href="javascript:void(0)">Shop Grid </a></h3>
                                             <ul class="mega-single-block">
-                                                <li><a href="<?=ROOT?>shop-grid">Fullwidth</a></li>
-                                                <li><a href="<?=ROOT?>shop-grid-left-sidebar">left Sidebar</a></li>
-                                                <li><a href="<?=ROOT?>shop-grid-right-sidebar">Right Sidebar</a></li>
+                                                <li><a href="shop-grid.html">Fullwidth</a></li>
+                                                <li><a href="shop-grid-left-sidebar.html">left Sidebar</a></li>
+                                                <li><a href="shop-grid-right-sidebar.html">Right Sidebar</a></li>
                                             </ul>
                                         </li>
                                         <li class="cus-col-25">
                                             <h3 class="menu-title"> <a href="javascript:void(0)">Shop List</a></h3>
                                             <ul class="mega-single-block">
                                                 <li><a href="<?=ROOT?>shop-list">Fullwidth</a></li>
-                                                <li><a href="<?=ROOT?>shop-list-left-sidebar">left Sidebar</a></li>
-                                                <li><a href="<?=ROOT?>shop-list-right-sidebar">Right Sidebar</a></li>
+                                                <li><a href="shop-list-left-sidebar.html">left Sidebar</a></li>
+                                                <li><a href="shop-list-right-sidebar.html">Right Sidebar</a></li>
                                             </ul>
                                         </li>
                                         <li class="cus-col-25">
@@ -658,10 +705,10 @@
                                             </h3>
                                             <ul class="mega-single-block">
                                                 <li><a href="<?=ROOT?>product-details">Product Details Page</a></li>
-                                                <li><a href="<?=ROOT?>product-details-affiliate">Product Details
+                                                <li><a href="product-details-affiliate.html">Product Details
                                                         Affiliate</a></li>
-                                                <li><a href="<?=ROOT?>product-details-group">Product Details Group</a></li>
-                                                <li><a href="<?=ROOT?>product-details-variable">Product Details
+                                                <li><a href="product-details-group.html">Product Details Group</a></li>
+                                                <li><a href="product-details-variable.html">Product Details
                                                         Variables</a></li>
                                             </ul>
                                         </li>
@@ -669,12 +716,12 @@
                                             <h3 class="menu-title"><a href="javascript:void(0)">Product Details 2</a>
                                             </h3>
                                             <ul class="mega-single-block">
-                                                <li><a href="<?=ROOT?>product-details-left-thumbnail">left Thumbnail</a>
+                                                <li><a href="product-details-left-thumbnail.html">left Thumbnail</a>
                                                 </li>
-                                                <li><a href="<?=ROOT?>product-details-right-thumbnail">Right Thumbnail</a>
+                                                <li><a href="product-details-right-thumbnail.html">Right Thumbnail</a>
                                                 </li>
-                                                <li><a href="<?=ROOT?>product-details-left-gallery">Left Gallery</a></li>
-                                                <li><a href="<?=ROOT?>product-details-right-gallery">Right Gallery</a></li>
+                                                <li><a href="product-details-left-gallery.html">Left Gallery</a></li>
+                                                <li><a href="product-details-right-gallery.html">Right Gallery</a></li>
                                             </ul>
                                         </li>
                                     </ul>
@@ -684,13 +731,16 @@
                                     <a href="javascript:void(0)">Pages <i
                                             class="fas fa-chevron-down dropdown-arrow"></i></a>
                                     <ul class="sub-menu">
-                                        <li><a href="<?=ROOT?>cart">Cart</a></li>
-                                        <li><a href="<?=ROOT?>checkout">Checkout</a></li>
-                                        <li><a href="<?=ROOT?>compare">Compare</a></li>
-                                        <li><a href="<?=ROOT?>wishlist">Wishlist</a></li>
-                                        <li><a href="<?=ROOT?>register">Register</a></li>
-                                        <li><a href="<?=ROOT?>my-account">My Account</a></li>
-                                        <li><a href="<?=ROOT?>order-complete">Order Complete</a></li>
+                                        <li><a href="cart.html">Cart</a></li>
+                                        <li><a href="checkout.html">Checkout</a></li>
+                                        <li><a href="compare.html">Compare</a></li>
+                                        <li><a href="wishlist.html">Wishlist</a></li>
+                                        <li><a href="<?=ROOT?>signin">Login </a></li>
+                                            <li><a href="<?=ROOT?>signup">Register</a></li>
+                                        <li><a href="my-account.html">My Account</a></li>
+                                        <li><a href="order-complete.html">Order Complete</a></li>
+                                        <li><a href="faq.html">Faq</a></li>
+                                        <li><a href="contact-2.html">contact 02</a></li>
                                     </ul>
                                 </li>
                                 <!-- Blog -->
@@ -701,33 +751,33 @@
                                         <li class="cus-col-33">
                                             <h3 class="menu-title"><a href="javascript:void(0)">Blog Grid</a></h3>
                                             <ul class="mega-single-block">
-                                                <li><a href="<?=ROOT?>blog">Full Widh (Default)</a></li>
-                                                <li><a href="<?=ROOT?>blog-left-sidebar">left Sidebar</a></li>
-                                                <li><a href="<?=ROOT?>blog-right-sidebar">Right Sidebar</a></li>
+                                                <li><a href="blog.html">Full Widh (Default)</a></li>
+                                                <li><a href="blog-left-sidebar.html">left Sidebar</a></li>
+                                                <li><a href="blog-right-sidebar.html">Right Sidebar</a></li>
                                             </ul>
                                         </li>
                                         <li class="cus-col-33">
                                             <h3 class="menu-title"><a href="javascript:void(0)">Blog List </a></h3>
                                             <ul class="mega-single-block">
-                                                <!-- <li><a href="blog-list">Full Widh (Default)</a></li> -->
-                                                <li><a href="<?=ROOT?>blog-list-left-sidebar">left Sidebar</a></li>
-                                                <li><a href="<?=ROOT?>blog-list-right-sidebar">Right Sidebar</a></li>
+                                                <!-- <li><a href="blog-list.html">Full Widh (Default)</a></li> -->
+                                                <li><a href="blog-list-left-sidebar.html">left Sidebar</a></li>
+                                                <li><a href="blog-list-right-sidebar.html">Right Sidebar</a></li>
                                             </ul>
                                         </li>
                                         <li class="cus-col-33">
                                             <h3 class="menu-title"><a href="javascript:void(0)">Blog Details</a></h3>
                                             <ul class="mega-single-block">
-                                                <li><a href="<?=ROOT?>blog-details">Image Format (Default)</a></li>
-                                                <li><a href="<?=ROOT?>blog-details-gallery">Gallery Format</a></li>
-                                                <li><a href="<?=ROOT?>blog-details-audio">Audio Format</a></li>
-                                                <li><a href="<?=ROOT?>blog-details-video">Video Format</a></li>
-                                                <li><a href="<?=ROOT?>blog-details-left-sidebar">left Sidebar</a></li>
+                                                <li><a href="blog-details.html">Image Format (Default)</a></li>
+                                                <li><a href="blog-details-gallery.html">Gallery Format</a></li>
+                                                <li><a href="blog-details-audio.html">Audio Format</a></li>
+                                                <li><a href="blog-details-video.html">Video Format</a></li>
+                                                <li><a href="blog-details-left-sidebar.html">left Sidebar</a></li>
                                             </ul>
                                         </li>
                                     </ul>
                                 </li>
                                 <li class="menu-item">
-                                    <a href="<?=ROOT?>contact">Contact</a>
+                                    <a href="contact.html">Contact</a>
                                 </li>
                             </ul>
                         </div>
