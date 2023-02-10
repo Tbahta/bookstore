@@ -29,7 +29,14 @@ class Home extends  Controller{
            
         }
 
-        //read products to display in home
+        // $conn =  Database::newInstance();
+        // $sql= "SELECT *FROM category order by id ";
+        // $categories = $conn->read($sql,[]); 
+        // if(count($data) !== 0){
+        //     $data['categories'] = $conn->read($sql);
+        // }
+
+        //read books to display in home
 
         $conn = Database::newInstance();
         if($search){

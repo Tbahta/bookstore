@@ -20,11 +20,15 @@ $conn = $db->db_connect();
 
     <!-- Bootstrap core CSS -->
     <link href="<?=ASSETS?>admin/css/bootstrap.css" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
     <!--external css-->
     <link href="<?=ASSETS?>admin/font-awesome/css/font-awesome.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="<?=ASSETS?>admin/css/zabuto_calendar.css">
     <link rel="stylesheet" type="text/css" href="<?=ASSETS?>admin/js/gritter/css/jquery.gritter.css" />
-    <link rel="stylesheet" type="text/css" href="<?=ASSETS?>admin/lineicons/style.css">    
+    <link rel="stylesheet" type="text/css" href="<?=ASSETS?>admin/lineicons/style.css">   
+    
+    <!-- Flatpicker  -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">    
     
     <!-- Custom styles for this template -->
     <link href="<?=ASSETS?>admin/css/style.css" rel="stylesheet">
@@ -32,7 +36,7 @@ $conn = $db->db_connect();
 
     <script src="<?=ASSETS?>admin/js/chart-master/Chart.js"></script>
 
-    
+
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -52,7 +56,7 @@ $conn = $db->db_connect();
                   <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
               </div>
             <!--logo start-->
-            <a href="<?=ROOT?>" class="logo"><b>DENSA BOOK STORE</b></a>
+            <a href="<?=ROOT?>admin" class="logo"><b>DENSA BOOK STORE</b></a>
             <!--logo end-->
             
             <div class="top-menu mt-20 pull-right" style="margin-top:10px;margin-right:100px;">

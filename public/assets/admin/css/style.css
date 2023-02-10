@@ -44,7 +44,7 @@ a, a:hover, a:focus {
 
 /* Bootstrap Modifications */
 .modal-header {
-	background: #68dff0;
+	background: #0069d9;
 }
 
 .modal-title {
@@ -2242,5 +2242,3 @@ label {
 .site-min-height {
     min-height: 900px;
 }
-
-

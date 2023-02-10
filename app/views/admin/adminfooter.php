@@ -1,8 +1,15 @@
+  
+  
+                </div>
+          	</div>		
+		</section> <!--/wrapper -->
+    </section><!-- /MAIN CONTENT -->
+ 
  <!--footer start-->
  <footer class="site-footer">
           <div class="text-center">
-              2014 - Alvarez.is
-              <a href="index.html#" class="go-top">
+              2023 - DEBSA BOOKSTORE
+              <a href="<?=ROOT?>" class="go-top">
                   <i class="fa fa-angle-up"></i>
               </a>
           </div>
@@ -29,6 +36,9 @@
     <!--script for this page-->
     <script src="<?=ASSETS?>admin/js/sparkline-chart.js"></script>    
 	<script src="<?=ASSETS?>admin/js/zabuto_calendar.js"></script>	
+
+    <!-- Flatpicker -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 	
 	
 	<script type="application/javascript">
@@ -66,6 +76,10 @@
         }
     </script>
   
+   <?php
+    include "adminassets.php";
+    $this->view('admin/adminassets',$data);
+   ?>
 
   </body>
 </html>

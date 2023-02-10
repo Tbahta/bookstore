@@ -20,8 +20,7 @@ define('ROOT',str_replace("app/core","public", $path));//http://localhost/bookst
 define("ASSETS", str_replace("app/core","public/assets",$path)); //http://localhost/bookstore/public/assets/
 
 //debug for dev purposes
-// echo "Root is = ". ROOT . "<br />";
-// echo "Asset is = ". ASSETS . "<br />";
+
 define('DEBUG',true);
 if(DEBUG){
     ini_set("display_errors",1);

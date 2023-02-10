@@ -21,7 +21,7 @@ class User{
  
        //call validation function - from /core/functions.php
        $error = validateInput($name, $email, $password,$password2,$phone,$address);
-    //    echo "error is: ".$error."<br />";
+        //    echo "error is: ".$error;
        if($error==""){
            $hashedPass = hash('sha1',$password);
            $data['name']     = $name; 
@@ -58,7 +58,6 @@ class User{
            $success = $instance->write($query,$data);
            if($success){
               //redirect and exit from here;
-            //   echo "success <br />";
                header('location:'.ROOT.'signin');
                die;
            }
@@ -90,7 +89,7 @@ class User{
        }
       
        if(empty($data['email']) || !preg_match("/^[a-zA-Z0-9_-]+@[a-zA-Z]+.[a-zA-Z]+$/",$data['email'])){
-               $error.= 'Wrong eamil or password <br />';
+               $error.= 'Wrong eamil or password ';
         }
         $uppercase    = preg_match('@[A-Z]@', $data['password']);
         $lowercase    = preg_match('@[a-z]@', $data['password']);
@@ -99,7 +98,7 @@ class User{
         
         if(!$uppercase || !$lowercase || !$number || strlen($data['password']) < 6) {
             if($error == ""){ // don't repeat the error message
-                $error.= "Wrong eamil or password <br />";
+                $error.= "Wrong eamil or password ";
             }
         }
 
@@ -133,7 +132,7 @@ class User{
             //    }
             }
                    
-            $error.= "Oops! Wrong credentials <br />";
+            $error.= "Oops! Wrong credentials ";
 
         }
             //if execution gets here, it meeans credentials weren't OK
@@ -145,10 +144,10 @@ class User{
     public function validateLogin($email, $password){
         $error = "";
         if (empty($email)) {
-            $error .= "Email is required <br>";
+            $error .= "Email is required";
         }
         if (empty($password)) {
-            $error .= "Password is required <br>";
+            $error .= "Password is required";
         }
         return $error;
     }
