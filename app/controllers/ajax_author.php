@@ -11,7 +11,8 @@ class Ajax_author extends Controller{
        
         $data = file_get_contents("php://input");
         $data = json_decode($data); 
-        
+        // print_r($data);
+
         if(is_object($data) && isset($data->data_type)){
   
           //create instance of Category Model to access methods like create, editCategory, deleteCategory etc ..
@@ -27,7 +28,7 @@ class Ajax_author extends Controller{
               $arr['message_type'] = 'error';
               $arr['data'] = "";
               $arr['data_type'] = "add_new";
- 
+
               echo json_encode($arr);
     
             }else{
@@ -37,7 +38,7 @@ class Ajax_author extends Controller{
               $authors = $author->getAuthors();
               $arr['data'] = $author->make_table($authors);
               $arr['data_type'] = "add_new";
-             
+      
               echo json_encode($arr);
             }
   
@@ -56,16 +57,16 @@ class Ajax_author extends Controller{
   
          }elseif($data->data_type == "edit_row"){
   
-          $author->editAuthor($data);
-          $arr['message'] = "Record updated successfully!";
-          $_SESSION['error']=""; //unset session error
-          $arr['message_type'] = 'info';
-          $arr['data_type'] = "edit_row";
-          $authors = $author->getAuthors();
-          $arr['data'] = $author->make_table($authors);
-          
-  
-           echo json_encode($arr);
+            $author->editAuthor($data);
+            $arr['message'] = "Record updated successfully!";
+            $_SESSION['error']=""; //unset session error
+            $arr['message_type'] = 'info';
+            $arr['data_type'] = "edit_row";
+            $authors = $author->getAuthors();
+            $arr['data'] = $author->make_table($authors);
+            
+    
+            echo json_encode($arr);
   
        }
     

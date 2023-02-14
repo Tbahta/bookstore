@@ -12,22 +12,21 @@
                           <table class="table table-striped table-advance table-hover">
 	                        	
                                 <!-- Button trigger modal -->
-                               <h4><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addAuthorModal"><i class="fa fa-plus"></i>   Add Author </button></h4>
+                               <h4><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addPublisherrModal"><i class="fa fa-plus"></i>   Add Publisher </button></h4>
 
-                                <!-- Add author Modal -->
-                                <div class="modal fade" id="addAuthorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <!-- Add Publisher Modal -->
+                                <div class="modal fade" id="addPublisherrModal" tabindex="-1" role="dialog" aria-labelledby="addPublisherrModal" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="addAuthorModalTitle">Add Author</h5>
+                                                <h5 class="modal-title" id="addPublisherTitle">Add Publisher </h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
                                                 <div class="modal-body">
-                                                    <input type="text" name="name" id ="name" class="form-control form-control-lg" style="margin-bottom:10px;" placeholder="Enter author name ...">
-                                                    <input type="email" name="email" id ="email" class="form-control form-control-lg" placeholder="Enter author email ...">
+                                                    <input type="text" name="publishername" id ="publishername" class="form-control form-control-lg" style="margin-bottom:10px;" placeholder="Enter publisher name ...">
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -37,28 +36,26 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- End AddAuthor Modal -->
+                                <!-- End AddPublisher Modal -->
 
-                                <!-- EDIT Author Modal -->
-                              <div class="modal fade" id="editAuthorModal" tabindex="-1" aria-labelledby="addAuthorModal" aria-hidden="true">
+                                <!-- EDIT Publisher Modal -->
+                              <div class="modal fade" id="editPublisherModal" tabindex="-1" aria-labelledby="addAuthorModal" aria-hidden="true">
                                     <div class="modal-dialog">
                                       <div class="modal-content">
                                         <div class="modal-header">
-                                          <h5 class="modal-title" id="edittitle">Edit Author</h5>
-                                          <!-- <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button> -->
+                                          <h5 class="modal-title" id="edittitle">Edit Publisher</h5>
                                         </div>
                                         <div class="modal-body">
-                                          <input type="text" name="editname" id ="editname" class="form-control form-control-lg" style="margin-bottom:10px;">
-                                          <input type="email" name="editemail" id ="editemail" class="form-control form-control-lg"  >
+                                          <input type="text" name="editpublishername" id ="editpublishername" class="form-control form-control-lg" style="margin-bottom:10px;">
                                          </div>
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
-                                          <button type="button" class="btn btn-primary" id="btnupdate" onclick="update_author_data(event)">Update </button>
+                                          <button type="button" class="btn btn-primary" id="btnupdate" onclick="update_publisher_data(event)">Update </button>
                                         </div>
                                       </div>
                                     </div>
                                   </div>
-                               <!-- END EDIT author Modal -->
+                               <!-- END EDIT Publisher Modal -->
 
                                 
                               
@@ -66,13 +63,12 @@
                               <thead>
                               <tr>
                                   <th class="hidden-phone"></i> ID #</th>
-                                  <th><i class="fa fa-user"></i> Author Name</th>
-                                  <th><i class="fa fa-envelope"></i> Email</th>
+                                  <th><i class="fa fa-book"></i> Publisher Name</th>
                                   <th><i class=" fa fa-edit"></i> Action</th>
                                   <th></th>
                               </tr>
                               </thead>
-                              <tbody id="author_table_body" style="font-size:14px;">
+                              <tbody id="publisher_table_body" style="font-size:14px;">
 
                                 <?php 
                                   //print generated table rows from model class through controller 
@@ -93,19 +89,13 @@
 
 var EDIT_ID =0;
 function collect_data(e){
-    var name = document.querySelector("#name").value.trim();
-    var email = document.querySelector("#email").value.trim();
-    if(name == "" || !isNaN(name)){
-        alert("please enter a valid name");
-    }
-
-    if(email == "" || !isNaN(email)){
-        alert("please enter a valid email");
+    var publisherName = document.querySelector("#publishername").value.trim();
+    if(publisherName == "" || !isNaN(publisherName)){
+        alert("please enter a valid publisher name");
     }
 
     send_data({
-        name:name,
-        email:email,
+        publisherName:publisherName,
         data_type:"add_new"
         });
 }
@@ -120,7 +110,7 @@ function send_data(data ={}){
         }
     });
     //send data
-    ajax.open("POST","<?=ROOT?>ajax_author", true);
+    ajax.open("POST","<?=ROOT?>ajax_publisher", true);
     ajax.send(JSON.stringify(data));
 
 
@@ -144,10 +134,10 @@ function  handle_results(result)
                     if(obj.message_type=="info")
                     {
 
-                        clearForm();
+                        document.querySelector("#publishername").value = "";
 
-                        let author_table_body = document.querySelector("#author_table_body");
-                        author_table_body.innerHTML = obj.data;
+                        let publisher_table_body = document.querySelector("#publisher_table_body");
+                        publisher_table_body.innerHTML = obj.data;
                        alert(obj.message);
                     }else
                     {
@@ -159,27 +149,20 @@ function  handle_results(result)
                 }else if(obj.data_type == "delete_row")
                 {
 
-                    let author_table_body = document.querySelector("#author_table_body");
-                    author_table_body.innerHTML=obj.data;
+                    let publisher_table_body = document.querySelector("#publisher_table_body");
+                    publisher_table_body.innerHTML=obj.data;
                    // alert(obj.message);
 
                 }else if(obj.data_type == "edit_row")
                 {
-                    let author_table_body = document.querySelector("#author_table_body");
-                    author_table_body.innerHTML=obj.data;
+                    let publisher_table_body = document.querySelector("#publisher_table_body");
+                    publisher_table_body.innerHTML=obj.data;
                     alert(obj.message);
-                    document.querySelector("#editname").value="";
-                    document.querySelector("#editemail").value="";
-                  
+                    document.querySelector("#editpublishername").value="";
 
                 }
 
             }
-        }
-
-        function clearForm() {
-            document.querySelector("#name").value = "";
-            document.querySelector("#email").value = ""
         }
      }
 
@@ -190,10 +173,7 @@ function  handle_results(result)
         info = JSON.parse(info.replaceAll("'",'"')); //replace single quotes by double quotes to make it a proper json object
         info = JSON.parse(info);
  
-        document.querySelector("#editname").value = info.name;
-        document.querySelector("#editemail").value = info.email;
-        // name.value = info.name;
-        // email.value = info.email;
+        document.querySelector("#editpublishername").value = info.publisherName;
 
         EDIT_ID =id;
 
@@ -201,20 +181,15 @@ function  handle_results(result)
 
     // Function to actually send data to be pushed to database
    
-    function update_author_data(e){
-        let name = document.querySelector("#editname").value.trim();
-        let email = document.querySelector("#editemail").value.trim();
-        if (name == "" || !isNaN(name)) {
-            alert("Author name is not valid");
-        }
-        if (email == "" || !isNaN(email)) {
-            alert("Email is not valid");
+    function update_publisher_data(e){
+        let publisherName = document.querySelector("#editpublishername").value.trim();
+        if (publisherName == "" || !isNaN(publisherName)) {
+            alert("Publisher name is not valid");
         }
 
         send_data({
             id:EDIT_ID,
-            name:name,
-            email:email,
+            publisherName:publisherName,
             data_type: "edit_row"
         });
 

@@ -89,7 +89,8 @@
 
 var EDIT_ID =0;
 function collect_data(e){
-    var categoryName = document.getElementById("categoryname").value.trim();
+    var categoryName = document.getElementById("categoryname").value;
+    categoryName = categoryName.trim();
     if(categoryName == "" || !isNaN(categoryName)){
         alert("please enter a valid category name");
     }
@@ -98,7 +99,7 @@ function collect_data(e){
         category:categoryName,
         data_type:"add_new"
         });
-        document.getElementById("categoryname").value = ""
+
 }
 
 //create function will send data to ajax_Category controller
@@ -125,8 +126,7 @@ function  handle_results(result)
           if(result!=="")
           {
             let obj= JSON.parse(result);
-            // alert("Obje alert ", obj);
-            // alert(obj.data_type);
+
             if(typeof obj.data_type!=='undefined')
             {
                 if(obj.data_type == "add_new")
@@ -134,12 +134,12 @@ function  handle_results(result)
                     // alert("add reached");
                     if(obj.message_type=="info")
                     {
-
-                        document.getElementById("categoryName").value = "";
-
+                        document.getElementById("categoryname").value = "";
                         let table_body = document.getElementById("table_body");
-                        table_body.innerHTML=obj.data;
-                       // alert(obj.message);
+                        table_body.innerHTML = obj.data; 
+                        alert(obj.message);                       
+              
+                       
                     }else
                     {
                         // alert("Error adding category");
@@ -152,14 +152,14 @@ function  handle_results(result)
 
                     let table_body = document.getElementById("table_body");
                     table_body.innerHTML=obj.data;
-                   // alert(obj.message);
+                   alert(obj.message);
 
                 }else if(obj.data_type == "edit_row")
                 {
                     let table_body = document.getElementById("table_body");
                     table_body.innerHTML=obj.data;
                     document.getElementById("editcatname").value="";
-                   // alert(obj.message);
+                    alert(obj.message);
 
                 }
 
@@ -167,13 +167,10 @@ function  handle_results(result)
         }
      }
 
-  /**
-     * Function to bring data to be edited
-     * @param event e
-     * @param number id
-     * @returnvoid
-     */
+// Function to bring data to be edited
+   
     function edit_record(id, category){
+        console.log(id, category)
         let txt_category = document.getElementById("editcatname");
         txt_category.value = category;
 
@@ -181,11 +178,8 @@ function  handle_results(result)
 
     }
 
-    /**
-     * Function to actually send data to pushed to database
-     * @param event e
-     * @return void
-     */
+   // Function to actually send data to pushed to database
+   
     function update_category_data(e){
         let category = document.getElementById("editcatname").value.trim();
         if (category == "" || !isNaN(category)) {
@@ -200,12 +194,8 @@ function  handle_results(result)
 
     }
 
-    /**
-     * Function to delete a record
-     * @param event e
-     * @param number id
-     * @return void
-     */
+    // Function to delete a record
+     
     function delete_record(e,id){
 
         if(!confirm("Are you sure to delete the record?")){

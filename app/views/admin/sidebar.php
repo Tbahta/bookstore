@@ -23,34 +23,44 @@
 
                   <li class="sub-menu">
                       <a href="<?=ROOT?>admin/books" >
-                      <i class="fa fa-barcode fa-fw"></i>
+                      <i class="fa fa-book"></i>
                           <span>Books</span>
                       </a>
                   </li>
 
                   <li class="sub-menu">
                       <a href="<?=ROOT?>admin/categories" >
-                      <i class="fa fa-barcode fa-fw"></i>
+                      <i class="fa fa-list-alt"></i>
                           <span>Categories</span>
                       </a>
-                      <!-- <ul class="sub">
+                      <ul class="sub">
                           <li><a  href="<?=ROOT?>admin/categories">View Categories</a></li>
-                      </ul> -->
+                      </ul>
                   </li>
 
                   <li class="sub-menu">
                       <a href="<?=ROOT?>admin/authors" >
-                      <i class="fa fa-barcode fa-fw"></i>
+                      <i class="fa fa-user"></i>
                           <span>Authors</span>
                       </a>
                   </li>
 
                   <li class="sub-menu">
                       <a href="<?=ROOT?>admin/publishers" >
-                      <i class="fa fa-barcode fa-fw"></i>
-                          <span>Publisher</span>
+                      <i class="fa fa-print"></i>
+                          <span>Publishers</span>
                       </a>
-                  </li
+                    </li>
+                    <li class="sub-menu">
+                      <a href="<?=ROOT?>admin/users" >
+                      <i class="fa fa-list-alt"></i>
+                          <span>Users</span>
+                      </a>
+                      <!-- <ul class="sub">
+                          <li><a  href="<?=ROOT?>admin/users">View Categories</a></li>
+                          <li><a  href="<?=ROOT?>admin/customers">View Categories</a></li>
+                      </ul> -->
+                  </li>
 
 
               </ul>

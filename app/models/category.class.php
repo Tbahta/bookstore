@@ -10,7 +10,7 @@ class Category{
        $conn =  Database::db_connect();
        $arr['category'] = ucwords($data->category);
    
-       if(!preg_match("/^[a-zA-Z ]+$/",trim($arr['category']))){
+       if(!preg_match("/^[a-zA-Z\\/ \\+\\-\\(\\)]+$/",trim($arr['category']))){
         //    echo "if you see this, the preg_match is bulshiting";
            $_SESSION['error'] = "Please enter valid category name";
 

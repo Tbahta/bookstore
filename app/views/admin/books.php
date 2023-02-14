@@ -330,19 +330,7 @@ function  handle_results(result)
                 {
                     clearForm();
 
-                    function clearForm() {
-
-                        document.getElementById("title").value = "";
-                        document.querySelector('#author').selectedIndex = null;
-                        document.querySelector('#category').selectedIndex = null;
-                        document.querySelector('#publisher').selectedIndex = null;
-                        document.getElementById("publishdate").value = "";
-                        document.getElementById("price").value = 0.0;
-                        document.getElementById("quantity").value = 0;
-                        document.getElementById("isbn").value = "";
-                        document.querySelector('#image1').value = '';
-                        document.querySelector('#image2').value = '';
-                    }
+                    
                     let book_table_body = document.getElementById("book_table_body");
                     book_table_body.innerHTML = obj.data;
                     alert("Book added successfully");
@@ -358,7 +346,7 @@ function  handle_results(result)
                 // alert(obj.message);
 
             }else if(obj.data_type == "edit_book")
-            {
+            {   
                 let book_table_body = document.getElementById("book_table_body");
                 book_table_body.innerHTML = obj.data;
                 alert(obj.message);
@@ -366,6 +354,20 @@ function  handle_results(result)
             }
 
         }
+    }
+
+    function clearForm() {
+
+        document.getElementById("title").value = "";
+        document.querySelector('#author').selectedIndex = null;
+        document.querySelector('#category').selectedIndex = null;
+        document.querySelector('#publisher').selectedIndex = null;
+        document.getElementById("publishdate").value = "";
+        document.getElementById("price").value = 0.0;
+        document.getElementById("quantity").value = 0;
+        document.getElementById("isbn").value = "";
+        document.querySelector('#image1').value = '';
+        document.querySelector('#image2').value = '';
     }
  }
 

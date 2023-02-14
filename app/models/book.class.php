@@ -147,16 +147,16 @@ class Book{
              }
              //From the author table get the authorname  associated with this book
             $autharr['id']= $book['author'];
-            $sql = "SELECT authorName FROM author where id =:id";
+            $sql = "SELECT name FROM author where id =:id";
             $response = $db->read($sql,$autharr);
             $author = "";
             if($response){
-               $author = $response[$counter]["authorName"];
+               $author = $response[$counter]["name"];
              }
              //From the publisher table get the publishername  associated with this book
              $pubarr['id']= $book['publisher'];
              $sql = "SELECT publisherName FROM publisher where id =:id";
-             $response = $db->read($sql,$autharr);
+             $response = $db->read($sql,$pubarr);
              $publisher = "";
              if($response){
                 $publisher = $response[$counter]["publisherName"];

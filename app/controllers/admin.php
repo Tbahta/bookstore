@@ -124,7 +124,7 @@ class Admin extends Controller
 
 
         //get authors to feed the combobox in book modal
-        $query= "SELECT *FROM author order by authorName";
+        $query= "SELECT *FROM author order by name";
         $authors = $conn->read($query,[]); 
         $data["authors"] = $authors;
 
@@ -209,6 +209,55 @@ class Admin extends Controller
 
             if($_SESSION['logged']['role']=="admin"){
                 $this->view("admin/authors",$data);
+            } else if($_SESSION['logged']['role']=="customer"){
+                $this->view("store/index",$data); //will take non admin to 404 page
+            }
+            
+        }else{
+            //intentionally lead them to 404
+            $this->view("store/404",$data);
+        }
+
+    }
+
+    function publishers(){
+      
+        $user = $this->loadModel('user');
+        $user_info = $user->checkLogin();
+        if(is_array($user_info)){
+            $data['email']    = $user_info['email'];
+            $data['name']     = $user_info['name'];
+            $data['role']     = $user_info['role'];
+            $data['userid']   = $user_info['userid'];
+            $data['phone']    = $user_info['phone'];
+            $data['address']  = $user_info['address'];
+    
+        }
+      
+      
+        //get table displayed in the publishers area
+        $conn =  Database::newInstance();
+        $sql= "SELECT *FROM publisher order by id ";
+        $publishers = $conn->read($sql,[]); 
+        
+        $publisher = $this->loadModel('Publisher');
+        $tbl_rows = $publisher->make_table($publishers);
+        $data["tbl_rows"] = $tbl_rows;
+        // print_r($tbl_rows);
+        $data["publishers"] = $publishers;
+        if(is_array($publishers)){
+             $data["tbl_rows"] = $tbl_rows;
+             $data["publishers"] = $publishers;
+            
+        }
+
+
+        $data["Page_title"] = "Publishers";
+        //check loggin and credential status
+        if(isset($_SESSION['logged'])){
+
+            if($_SESSION['logged']['role']=="admin"){
+                $this->view("admin/publishers",$data);
             } else if($_SESSION['logged']['role']=="customer"){
                 $this->view("store/index",$data); //will take non admin to 404 page
             }

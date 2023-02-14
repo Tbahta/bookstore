@@ -13,9 +13,7 @@ class Home extends  Controller{
              $find = addslashes($_GET['find']);
              $search = true;
          }
-        // display( $_SESSION['logged']);
-        //         echo "got here \n";
-        // check if user is logged in
+    
         $user = $this->loadModel('user');
         $user_info = $user->checkLogin();
         if(is_array($user_info)){
@@ -29,12 +27,13 @@ class Home extends  Controller{
            
         }
 
-        // $conn =  Database::newInstance();
-        // $sql= "SELECT *FROM category order by id ";
-        // $categories = $conn->read($sql,[]); 
-        // if(count($data) !== 0){
-        //     $data['categories'] = $conn->read($sql);
-        // }
+        $conn =  Database::newInstance();
+        $sql= "SELECT *FROM category order by id ";
+        $categories = $conn->read($sql,[]);
+        if(count($categories) !== 0){
+            $data['categories'] = $categories;
+            //display($data['categories']);
+        }
 
         //read books to display in home
 
@@ -42,18 +41,17 @@ class Home extends  Controller{
         if($search){
          
             $arr['slug'] = "%".$find."%"; 
-            $query = "SELECT *FROM product WHERE slug like :slug";
-            $ROWS = $conn->read($query,$arr);
+            $query = "SELECT *FROM book WHERE slug like :slug";
+            $BOOKS = $conn->read($query,$arr);
             $data['item_searched'] = true;
         }else{
-            $ROWS = $conn->read("SELECT *FROM product"); //limit stuff
+            $BOOKS = $conn->read("SELECT *FROM book"); //limit stuff
         }
 
+        $data['BOOKS'] = $BOOKS;   
 
-        $data['ROWS'] = $ROWS;
 
-
-       $data["Page_title"] = "Home page";
+       $data["Page_title"] = "Home";
        $data['search'] = true; //search box will show
        //load the home view - > index.php
         $this->view("store/index",$data);

@@ -7,7 +7,7 @@
                 <div class="brand-slider sb-slick-slider border-top border-bottom" data-slick-setting='{
                                                 "autoplay": true,
                                                 "autoplaySpeed": 8000,
-                                                "slidesToShow": 6
+                                                "slidesToShow": 5
                                                 }' data-slick-responsive='[
                     {"breakpoint":992, "settings": {"slidesToShow": 4} },
                     {"breakpoint":768, "settings": {"slidesToShow": 3} },
@@ -16,28 +16,28 @@
                     {"breakpoint":320, "settings": {"slidesToShow": 1} }
                 ]'>
                     <div class="single-slide">
-                        <img src="<?=ASSETS?>store/image/others/brand-1.jpg" alt="">
+                        <img src="<?=ASSETS?>store/image/1.jpeg" width="70px" height="70px" alt="">
                     </div>
                     <div class="single-slide">
-                        <img src="<?=ASSETS?>store/image/others/brand-2.jpg" alt="">
+                        <img src="<?=ASSETS?>store/image/2.jpeg" width="70px" height="70px" alt="">
                     </div>
                     <div class="single-slide">
-                        <img src="<?=ASSETS?>store/image/others/brand-3.jpg" alt="">
+                        <img src="<?=ASSETS?>store/image/3.jpeg" width="70px" height="70px" alt="">
                     </div>
                     <div class="single-slide">
-                        <img src="<?=ASSETS?>store/image/others/brand-4.jpg" alt="">
+                        <img src="<?=ASSETS?>store/image/4.jpeg" width="70px" height="70px" alt="">
                     </div>
                     <div class="single-slide">
-                        <img src="<?=ASSETS?>store/image/others/brand-5.jpg" alt="">
+                        <img src="<?=ASSETS?>store/image/5.jpeg" width="70px" height="70px" alt="">
                     </div>
                     <div class="single-slide">
-                        <img src="<?=ASSETS?>store/image/others/brand-6.jpg" alt="">
+                        <img src="<?=ASSETS?>store/image/6.jpeg" width="70px" height="70px" alt="">
                     </div>
                     <div class="single-slide">
-                        <img src="<?=ASSETS?>store/image/others/brand-1.jpg" alt="">
+                        <img src="<?=ASSETS?>store/image/1.jpeg" width="70px" height="70px" alt="">
                     </div>
                     <div class="single-slide">
-                        <img src="<?=ASSETS?>store/image/others/brand-2.jpg" alt="">
+                        <img src="<?=ASSETS?>store/image/2.jpeg" width="70px" height="70px" alt="">
                     </div>
                 </div>
             </div>
@@ -51,7 +51,7 @@
                 <div class=" col-xl-3 col-lg-4 col-sm-6">
                     <div class="single-footer pb--40">
                         <div class="brand-footer footer-title">
-                            <img src="<?=ASSETS?>store/image/logo--footer.png" alt="">
+                        <img src="<?=ASSETS?>store/image/logo.png" alt="log -image">
                         </div>
                         <div class="footer-contact">
                             <p><span class="label">Address:</span><span class="text">Example Street 98, HH2 BacHa, New

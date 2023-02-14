@@ -1,6 +1,6 @@
 <?php
 
-class Ajax_publisher extends Controller{
+class Ajax_user extends Controller{
 
      /**
      *  defualt method - gets the categories from the input fields and passes them to a proper model
@@ -16,10 +16,10 @@ class Ajax_publisher extends Controller{
         if(is_object($data) && isset($data->data_type)){
   
           //create instance of Category Model to access methods like create, editCategory, deleteCategory etc ..
-          $publisher = $this->loadModel('Publisher');
+          $user = $this->loadModel('User');
   
           if($data->data_type == "add_new"){
-             $publisher->create($data);
+             $user->create($data);
       
             if(isset($_SESSION['error']) && $_SESSION['error']!=""){
               
@@ -33,10 +33,10 @@ class Ajax_publisher extends Controller{
     
             }else{
               
-              $arr['message'] = "Publisher added successfully";
+              $arr['message'] = "user added successfully";
               $arr['message_type'] = 'info';
-              $publishers = $publisher->getPublishers();
-              $arr['data'] = $publisher->make_table($publishers);
+              $users = $user->getUsers();
+              $arr['data'] = $user->make_table($users);
               $arr['data_type'] = "add_new";
       
               echo json_encode($arr);
@@ -44,26 +44,26 @@ class Ajax_publisher extends Controller{
   
           }elseif($data->data_type == "delete_row"){
   
-            $publisher->deletePublisher($data->id);
+            $user->deleteUser($data->id);
             $arr['message'] = "Record deleted successfully!";
             $_SESSION['error']=""; //unset session error
             $arr['message_type'] = 'info';
             $arr['data_type'] = "delete_row";
-            $publishers = $publisher->getPublishers();
-            $arr['data'] = $publisher->make_table($publishers);
+            $users = $user->getUsers();
+            $arr['data'] = $user->make_table($users);
             
    
              echo json_encode($arr);
   
          }elseif($data->data_type == "edit_row"){
   
-            $publisher->editPublisher($data);
+            $user->editUser($data);
             $arr['message'] = "Record updated successfully!";
             $_SESSION['error']=""; //unset session error
             $arr['message_type'] = 'info';
             $arr['data_type'] = "edit_row";
-            $publishers = $publisher->getPublishers();
-            $arr['data'] = $publisher->make_table($publishers);
+            $users = $user->getUsers();
+            $arr['data'] = $user->make_table($users);
             
     
             echo json_encode($arr);

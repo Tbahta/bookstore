@@ -25,7 +25,7 @@ class Author{
        if (!isset($_SESSION['error']) || $_SESSION['error']=="") {
 
             //check if the author already exists
-           $sql = "SELECT email FROM author where email = :email";
+           $sql = "SELECT email FROM author where email = :email limit 1";
            $arr['email'] = $authordata['email'];
            $check1 = $conn->read($sql,$arr);
     
@@ -52,11 +52,11 @@ class Author{
       $conn                =  Database::newInstance();
       $arr                 = [];
       $id                  = (int)$data->id;
-      $arr['name']        = $data->name;
+      $arr['name']   = $data->name;
       $arr['email']        = $data->email;
       $arr['id']           = $id;
     
-      $query = "UPDATE author SET name = :name,email =:email WHERE id = :id limit 1 ";
+      $query = "UPDATE authro SET categoryName = :category,email =:email WHERE id = :id limit 1 ";
       $conn->write($query,$arr); 
 
         
@@ -65,6 +65,7 @@ class Author{
     // Function to delete author
     
     public function deleteAuthor($id){
+        echo ` id is $id`;
       $conn =  Database::newInstance();
       $id = (int)$id;
       $query = "DELETE FROM author WHERE id ='$id' limit 1 ";
@@ -80,24 +81,15 @@ class Author{
 
     
     function make_table($authors){
-      print_r($authors);
         $result="";
 
         if(is_array($authors)){
           foreach ($authors as $author) {
             $args = $author["id"];
             $author = (object) $author;
-            // $args = $author->name. ",'". $author->email."'";
-            // $args = $author->id. ",'".$author->name. ",'". $author->email."'";
-            $info = array();
-            $info['id'] = $author->id;
-            $info['name'] = $author->name;
-            $info['email'] = $author->email;
-
-             //conver json to string
-             $info = json_encode($info);
-             $info =  str_replace('"',"'",json_encode($info));
-
+            // $args = $cat_row->id. ",'". $cat_row->status."'";
+            // $args = $author->id. ",'". $author->name."'";
+         
             $result .= "<tr>";
          
               $result.='                    
@@ -106,7 +98,7 @@ class Author{
                    <td  class="text-dark">'.$author->email .'</td>
                   
                    <td>
-                       <button info = "'.$info.'" class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#editAuthorModal" onclick="edit_record('.$args.', event)"><i class="fa fa-pencil"></i></button>
+                       <button class="btn btn-primary btn-xs"  data-toggle="modal" data-target="#editAuthorModal" onclick="edit_record('.$args.')"><i class="fa fa-pencil"></i></button>
                        <button class="btn btn-danger btn-xs"  onclick="delete_record(event,'.$author->id.')"><i class="fa fa-trash-o "></i></button>
                    </td>';
          

@@ -113,3 +113,10 @@ function uploadImages(){
    }
    return $arr;
 }
+
+function esc($slug){
+
+    return addslashes($slug);
+
+
+}

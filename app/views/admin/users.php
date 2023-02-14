@@ -12,22 +12,29 @@
                           <table class="table table-striped table-advance table-hover">
 	                        	
                                 <!-- Button trigger modal -->
-                               <h4><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addAuthorModal"><i class="fa fa-plus"></i>   Add Author </button></h4>
+                               <h4><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addUserModal"><i class="fa fa-plus"></i>   Add User </button></h4>
 
                                 <!-- Add author Modal -->
-                                <div class="modal fade" id="addAuthorModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="addUserModal" tabindex="-1" role="dialog" aria-labelledby="addUserModal" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="addAuthorModalTitle">Add Author</h5>
+                                                <h5 class="modal-title" id="addAuthorModalTitle">Add User</h5>
                                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                                 </button>
                                             </div>
                                             <div class="modal-body">
                                                 <div class="modal-body">
-                                                    <input type="text" name="name" id ="name" class="form-control form-control-lg" style="margin-bottom:10px;" placeholder="Enter author name ...">
-                                                    <input type="email" name="email" id ="email" class="form-control form-control-lg" placeholder="Enter author email ...">
+                                                    <input type="text" name="name" id ="name" class="form-control form-control-lg" style="margin-bottom:10px;" placeholder="Enter user name ...">
+                                                    <input type="email" name="email" id ="email" class="form-control form-control-lg" style="margin-bottom:10px;" placeholder="Enter user email name ...">
+                                                    <input type="text" name="phone" id ="phone" class="form-control form-control-lg" style="margin-bottom:10px;" placeholder="Enter user phone # ...">
+                                                    <input type="text" name="address" id ="address" class="form-control form-control-lg" style="margin-bottom:10px;" placeholder="Enter user address ...">
+                                                    <select  id="role" class="form-select form-select-lg form-control input-lg form-control-lg mb-4  " style="margin-bottom:5px;" aria-label=".form-select ">
+                                                        <option selected>Role *</option>
+                                                                <option value="customer">Customer</option>
+                                                                <option value="admin">Admin</option>
+                                                    </select>
                                                 </div>
                                             </div>
                                             <div class="modal-footer">
@@ -37,28 +44,35 @@
                                         </div>
                                     </div>
                                 </div>
-                                <!-- End AddAuthor Modal -->
+                                <!-- End User Modal -->
 
-                                <!-- EDIT Author Modal -->
-                              <div class="modal fade" id="editAuthorModal" tabindex="-1" aria-labelledby="addAuthorModal" aria-hidden="true">
+                                <!-- EDIT User Modal -->
+                              <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModal" aria-hidden="true">
                                     <div class="modal-dialog">
                                       <div class="modal-content">
                                         <div class="modal-header">
-                                          <h5 class="modal-title" id="edittitle">Edit Author</h5>
+                                          <h5 class="modal-title" id="edittitle">Edit User</h5>
                                           <!-- <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button> -->
                                         </div>
                                         <div class="modal-body">
-                                          <input type="text" name="editname" id ="editname" class="form-control form-control-lg" style="margin-bottom:10px;">
-                                          <input type="email" name="editemail" id ="editemail" class="form-control form-control-lg"  >
+                                                <input type="text" name="editname" id ="editname" class="form-control form-control-lg" style="margin-bottom:10px;" >
+                                                <input type="email" name="editemail" id ="editemail" class="form-control form-control-lg" style="margin-bottom:10px;">
+                                                <input type="text" name="editphone" id ="editphone" class="form-control form-control-lg" style="margin-bottom:10px;">
+                                                <input type="text" name="editaddress" id ="editaddress" class="form-control form-control-lg" style="margin-bottom:10px;">
+                                                <select  id="editrole" class="form-select form-select-lg form-control input-lg form-control-lg mb-4  " style="margin-bottom:5px;" aria-label=".form-select ">
+                                                    <option selected>Role *</option>
+                                                    <option value="customer">Customer</option>
+                                                    <option value="admin">Admin</option>
+                                                </select>
                                          </div>
                                         <div class="modal-footer">
                                           <button type="button" class="btn btn-warning" data-dismiss="modal">Cancel</button>
-                                          <button type="button" class="btn btn-primary" id="btnupdate" onclick="update_author_data(event)">Update </button>
+                                          <button type="button" class="btn btn-primary" id="btnupdate" onclick="update_user_data(event)">Update </button>
                                         </div>
                                       </div>
                                     </div>
                                   </div>
-                               <!-- END EDIT author Modal -->
+                               <!-- END EDIT User Modal -->
 
                                 
                               
@@ -66,13 +80,15 @@
                               <thead>
                               <tr>
                                   <th class="hidden-phone"></i> ID #</th>
-                                  <th><i class="fa fa-user"></i> Author Name</th>
+                                  <th><i class="fa fa-user"></i> Name</th>
                                   <th><i class="fa fa-envelope"></i> Email</th>
+                                  <th><i class="fa fa-phone"></i> Phone</th>
+                                  <th><i class="fa fa-home"></i> Date</th>
                                   <th><i class=" fa fa-edit"></i> Action</th>
                                   <th></th>
                               </tr>
                               </thead>
-                              <tbody id="author_table_body" style="font-size:14px;">
+                              <tbody id="user_table_body" style="font-size:14px;">
 
                                 <?php 
                                   //print generated table rows from model class through controller 
@@ -95,6 +111,12 @@ var EDIT_ID =0;
 function collect_data(e){
     var name = document.querySelector("#name").value.trim();
     var email = document.querySelector("#email").value.trim();
+    var phone = document.querySelector("#phone").value.trim();
+    var address = document.querySelector("#address").value.trim();
+
+    let selectedRole = document.querySelector('#role');
+    let role  = selectedRole.options[selectedRole.selectedIndex].value
+
     if(name == "" || !isNaN(name)){
         alert("please enter a valid name");
     }
@@ -103,9 +125,20 @@ function collect_data(e){
         alert("please enter a valid email");
     }
 
+    if(phone == "" || !isNaN(phone)){
+        alert("please enter a valid email");
+    }
+
+    if(address == "" || !isNaN(address)){
+        alert("please enter a valid email");
+    }
+
     send_data({
         name:name,
         email:email,
+        phone:phone,
+        address:address,
+        role:role,
         data_type:"add_new"
         });
 }
@@ -120,7 +153,7 @@ function send_data(data ={}){
         }
     });
     //send data
-    ajax.open("POST","<?=ROOT?>ajax_author", true);
+    ajax.open("POST","<?=ROOT?>ajax_user", true);
     ajax.send(JSON.stringify(data));
 
 
@@ -146,8 +179,8 @@ function  handle_results(result)
 
                         clearForm();
 
-                        let author_table_body = document.querySelector("#author_table_body");
-                        author_table_body.innerHTML = obj.data;
+                        let user_table_body = document.querySelector("#user_table_body");
+                        user_table_body.innerHTML = obj.data;
                        alert(obj.message);
                     }else
                     {
@@ -159,17 +192,16 @@ function  handle_results(result)
                 }else if(obj.data_type == "delete_row")
                 {
 
-                    let author_table_body = document.querySelector("#author_table_body");
-                    author_table_body.innerHTML=obj.data;
+                    let user_table_body = document.querySelector("#user_table_body");
+                    user_table_body.innerHTML=obj.data;
                    // alert(obj.message);
 
                 }else if(obj.data_type == "edit_row")
                 {
-                    let author_table_body = document.querySelector("#author_table_body");
-                    author_table_body.innerHTML=obj.data;
+                    let user_table_body = document.querySelector("#user_table_body");
+                    user_table_body.innerHTML=obj.data;
                     alert(obj.message);
-                    document.querySelector("#editname").value="";
-                    document.querySelector("#editemail").value="";
+                    clearForm();
                   
 
                 }
@@ -179,7 +211,10 @@ function  handle_results(result)
 
         function clearForm() {
             document.querySelector("#name").value = "";
-            document.querySelector("#email").value = ""
+            document.querySelector("#email").value = "";
+            document.querySelector("#phone").value = "";
+            document.querySelector("#address").value = "";
+            document.querySelector('#role').selectedIndex = null;
         }
      }
 
