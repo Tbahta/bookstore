@@ -1,43 +1,22 @@
+
 <?php
+     $this->view('admin/adminheader',$data);
+     $this->view('admin/sidebar',$data);
 
-// $this->view("store/adminheader",$data);
-$this->view("admin/adminheader",$data);
-// display($data);
 ?>
-
-  <!--sidebar start-->
-  <aside>
-          <div id="sidebar"  class="nav-collapse " style="width: 20%;">
-              <!-- sidebar menu start-->
-              <ul class="sidebar-menu" id="nav-accordion">
-              
-              	  <p class="centered"><a href="<?=ROOT?>profile"><img src="<?=ASSETS?>store/image/user.png" class="img-circle" width="60"></a></p>
-              	  <h5 class="centered"><?=ucwords($data['name']);?></h5>
-              	  	
-                  <li class="mt">
-                      <a class="active" href="<?=ROOT?>signout">
-                          <i class="fa fa-stop"></i>
-                          <span>Signout</span>
-                      </a>
-                  </li>
-              
-
-              </ul>
-              <!-- sidebar menu end-->
-          </div>
-      </aside>
-      <!--sidebar end-->
-
-
+   
+    
+     <!-- <p>Place your content here admin dashboard.</p> -->
+     
 <!-- Profile section starts here-->
-<section class="mt-5 p-5" id="profile-wrapper"  >
+<section class="mt-5 pl-5" id="profile-wrapper" >
 <!-- <h3>Profile</h3> -->
-<div class="wrapper" style="background-color: #FFF; width: 80%; float:right; padding:50px;">
+<div class="wrapper" style="background-color: #FFF;padding:30px;" >
  <div class="row mt-5">
      <div class="col-md-6">
          <div class="row">
              <div class="col-5">
-                <img  src="<?=ASSETS?>store/image/user.png" alt=" profile image" style="border-radius:50%;max-height:150px;">
+                <img  src="<?=ASSETS?>store/image/user.png" alt=" profile image" style="border-radius:50%;height:80px;">
              </div>
              <div class="col-7  py-5 border-left">
                  <p class="display-5"><?=$data['name']?></p>
@@ -157,11 +136,6 @@ $this->view("admin/adminheader",$data);
 <!-- End Profiles section -->
 
 
-
-
-
-
-
-<!-- Admin assets and scripts are called by this line -->
-<?php $this->view("admin/adminfooter",$data); ?>
-
+    <?php
+     $this->view('admin/adminfooter',$data);
+     ?>

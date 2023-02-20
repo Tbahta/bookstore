@@ -18,7 +18,7 @@ function validateInput($name, $email, $password,$password2,$phone,$address){
         }
     //name
     if(empty($name) || !preg_match("/^[a-zA-Z\s]+$/",$name)){
-            $error.= 'Name should only contain alphabets';
+            $error.= 'Name should only contain alphabets <br/>';
             
     }
     //Password 
@@ -29,7 +29,7 @@ function validateInput($name, $email, $password,$password2,$phone,$address){
     
     // if(!$uppercase || !$lowercase || !$number || !$specialChars || strlen($password) < 8) {
     if(!$uppercase || !$lowercase || !$number || strlen($password) < 6) {
-        $error.= "Password doesn't meet the minimum requirements. ";
+        $error.= "Password doesn't meet the minimum requirements <br/> ";
         }
     if($password !==$password2){
     $error.= 'Password mismatch ';
@@ -39,7 +39,7 @@ function validateInput($name, $email, $password,$password2,$phone,$address){
     // $valid = filter_var($phone, FILTER_SANITIZE_NUMBER_INT);
     if(!empty($phone) && !preg_match("/^[0-9]{10}+$/", $phone)){
     // if(!empty($phone) || !$valid){
-        $error.= 'phone number should only contain numbers ';
+        $error.= 'phone number should only contain numbers  <br/>';
         
     }
     // if(!empty($phone) && !preg_match("/^[0-9]{3}-[0-9]{3}-[0-9]{4}$/", $phone)){
@@ -51,7 +51,7 @@ function validateInput($name, $email, $password,$password2,$phone,$address){
     $number    = preg_match('@[0-9]@', $address);
     //address
     if(!empty($address) && !$uppercase && !$lowercase && !$number){
-        $error.= 'Errors related the address field ';
+        $error.= 'Errors related the address field  <br/>';
     }
 
 
@@ -105,7 +105,7 @@ function uploadImages(){
         // resize_image($destination,$destination,500,575);
 
       }else{
-        $_SESSION['error'] .= $key ."is larger than max upload size (5 megabyte max)>";
+        $_SESSION['error'] .= $key ."is larger than max upload size (5 megabyte max)  <br/> ";
       }
 
     }

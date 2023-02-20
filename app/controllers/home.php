@@ -5,7 +5,7 @@ class Home extends  Controller{
 
     //defualt method
     function index(){
-
+         echo "got here \n";
          //check if search was made 
          $search = false;
          $find = '';
@@ -22,8 +22,6 @@ class Home extends  Controller{
             $data['role']       =   $user_info['role'];
             $data['userid']     =   $user_info['userid'];
             
-        //    display($data['user_email']);
-        //    display($user_info['role']);
            
         }
 
@@ -32,8 +30,20 @@ class Home extends  Controller{
         $categories = $conn->read($sql,[]);
         if(count($categories) !== 0){
             $data['categories'] = $categories;
-            //display($data['categories']);
         }
+       $sql = "SELECT * FROM book LEFT JOIN category ON book.category = category.id WHERE category.categoryName like 'child%' order by book.id desc"; 
+       $CHILDREN = $conn->read($sql,[]);
+       if(count($CHILDREN) !== 0){
+            $data['CHILDREN'] = $CHILDREN;
+        }
+        // display($CHILDREN);die;
+    
+        if(is_array($CHILDREN) && count($CHILDREN) !== 0){
+            // echo $CHILDREN[0]['categoryName'];
+        }
+       
+      
+
 
         //read books to display in home
 

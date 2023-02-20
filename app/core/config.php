@@ -7,7 +7,7 @@ define("WEBSITE","Bookstre");
 define("DB_TYPE",'mysql');
 define("DB_HOST","localhost");
 define("DB_USER","root");
-define("DB_PASS","1234");
+define("DB_PASS","root");
 define("DB_NAME","bookstore");
 
 
@@ -20,7 +20,9 @@ define('ROOT',str_replace("app/core","public", $path));//http://localhost/bookst
 define("ASSETS", str_replace("app/core","public/assets",$path)); //http://localhost/bookstore/public/assets/
 
 //debug for dev purposes
-
+// echo "Path : ".$path ."<br/>";
+// echo "ROOT : ".ROOT ."<br/>";
+// echo "ASSESTS : ".ASSETS ."<br/>";
 define('DEBUG',true);
 if(DEBUG){
     ini_set("display_errors",1);

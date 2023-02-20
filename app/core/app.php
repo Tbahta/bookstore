@@ -8,6 +8,8 @@ class App {
    private  $params = [];
     
    public function __construct()  {
+    $testUrl = isset($_GET['url']) ? $_GET['url'] :"home";
+    // print_r($testUrl);die;
      $url = $this->splitURL();
     //  display($url);
      if(file_exists("../app/controllers/".strtolower($url[0]).".php")){

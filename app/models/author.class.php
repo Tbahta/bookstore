@@ -80,7 +80,7 @@ class Author{
 
     
     function make_table($authors){
-      print_r($authors);
+      // print_r($authors);
         $result="";
 
         if(is_array($authors)){

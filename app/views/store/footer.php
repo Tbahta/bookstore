@@ -16,25 +16,25 @@
                     {"breakpoint":320, "settings": {"slidesToShow": 1} }
                 ]'>
                     <div class="single-slide">
-                        <img src="<?=ASSETS?>store/image/1.jpeg" width="70px" height="70px" alt="">
+                        <img src="<?=ASSETS?>store/image/yellow.jpg" width="70px" height="70px" alt="">
                     </div>
                     <div class="single-slide">
                         <img src="<?=ASSETS?>store/image/2.jpeg" width="70px" height="70px" alt="">
                     </div>
                     <div class="single-slide">
-                        <img src="<?=ASSETS?>store/image/3.jpeg" width="70px" height="70px" alt="">
+                        <img src="<?=ASSETS?>store/image/yellow.jpg" width="70px" height="70px" alt="">
                     </div>
                     <div class="single-slide">
                         <img src="<?=ASSETS?>store/image/4.jpeg" width="70px" height="70px" alt="">
                     </div>
                     <div class="single-slide">
-                        <img src="<?=ASSETS?>store/image/5.jpeg" width="70px" height="70px" alt="">
+                        <img src="<?=ASSETS?>store/image/yellow.jpg" width="70px" height="70px" alt="">
                     </div>
                     <div class="single-slide">
                         <img src="<?=ASSETS?>store/image/6.jpeg" width="70px" height="70px" alt="">
                     </div>
                     <div class="single-slide">
-                        <img src="<?=ASSETS?>store/image/1.jpeg" width="70px" height="70px" alt="">
+                        <img src="<?=ASSETS?>store/image/yellow.jpg" width="70px" height="70px" alt="">
                     </div>
                     <div class="single-slide">
                         <img src="<?=ASSETS?>store/image/2.jpeg" width="70px" height="70px" alt="">

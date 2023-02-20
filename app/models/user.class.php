@@ -40,7 +40,7 @@ class User{
             $arr['email'] = $data['email'];
             $check        = $instance->read($query,$arr);
             if(is_array($check) && count($check)>0){
-                $message ='<a href="'.ROOT.'signin" class="text-success">login</a> instead';
+                $message ='<a href="'.ROOT.'signin" class="text-success">login</a> instead  <br/>';
                 $_SESSION['duplicateemail'] = "User with this email already exists, ".$message;
             }
             
@@ -89,7 +89,7 @@ class User{
        }
       
        if(empty($data['email']) || !preg_match("/^[a-zA-Z0-9_-]+@[a-zA-Z]+.[a-zA-Z]+$/",$data['email'])){
-               $error.= 'Wrong eamil or password ';
+               $error.= 'Wrong eamil or password  <br/>';
         }
         $uppercase    = preg_match('@[A-Z]@', $data['password']);
         $lowercase    = preg_match('@[a-z]@', $data['password']);
@@ -98,7 +98,7 @@ class User{
         
         if(!$uppercase || !$lowercase || !$number || strlen($data['password']) < 6) {
             if($error == ""){ // don't repeat the error message
-                $error.= "Wrong eamil or password ";
+                $error.= "Wrong eamil or password  <br/>";
             }
         }
 
@@ -132,7 +132,7 @@ class User{
             //    }
             }
                    
-            $error.= "Oops! Wrong credentials ";
+            $error.= "Oops! Wrong credentials  <br/>";
 
         }
             //if execution gets here, it meeans credentials weren't OK

@@ -15,18 +15,12 @@
 
  
                   <li class="sub-menu">
-                      <a href="javascript:;" >
+                    <a href="<?=ROOT?>admin" >
                       <i class="fa fa-dashboard"></i>
                           <span>Dashboard</span>
                       </a>
                   </li>
 
-                  <li class="sub-menu">
-                      <a href="<?=ROOT?>admin/books" >
-                      <i class="fa fa-book"></i>
-                          <span>Books</span>
-                      </a>
-                  </li>
 
                   <li class="sub-menu">
                       <a href="<?=ROOT?>admin/categories" >
@@ -51,17 +45,55 @@
                           <span>Publishers</span>
                       </a>
                     </li>
+
+                    <li class="sub-menu">
+                      <a href="<?=ROOT?>admin/books" >
+                      <i class="fa fa-book"></i>
+                          <span>Books</span>
+                      </a>
+                  </li>
+                  
                     <li class="sub-menu">
                       <a href="<?=ROOT?>admin/users" >
                       <i class="fa fa-list-alt"></i>
                           <span>Users</span>
                       </a>
-                      <!-- <ul class="sub">
+                      <ul class="sub">
                           <li><a  href="<?=ROOT?>admin/users">View Categories</a></li>
                           <li><a  href="<?=ROOT?>admin/customers">View Categories</a></li>
-                      </ul> -->
+                      </ul>
+                  </li>
+                  <li style="margin-top:20px;">
+                    
+                    <p> Future Enhancements</p>
+                    <hr>
                   </li>
 
+                  <li class="sub-menu">
+                      <a href="<?=ROOT?>admin/orders" >
+                      <i class="fa fa-shopping-cart"></i>
+                          <span>Orders</span>
+                      </a>
+                  </li>
+
+                  <li class="sub-menu">
+                      <a href="<?=ROOT?>admin/sales" >
+                      <i class="fa fa-money"></i>
+                          <span>Total Sales</span>
+                      </a>
+                  </li>
+ 
+                  <li class="sub-menu">
+                      <a href="javascript:;" >
+                          <i class="fa fa-desktop"></i>
+                          <span>UI Elements</span>
+                      </a>
+                      <ul class="sub">
+                          <li><a  href="general.html">General</a></li>
+                          <li><a  href="buttons.html">Buttons</a></li>
+                          <li><a  href="panels.html">Panels</a></li>
+                      </ul>
+                  </li>
 
               </ul>
               <!-- sidebar menu end-->

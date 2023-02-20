@@ -38,8 +38,7 @@ class BookDetails extends Controller{
           $data['book']    = $singlerow[0];
           $data['categoryName'] = $categoryname;    
           $data['BOOKS']     = $books;    
-          
-        //   display($data);die;
+
           $data["Page_title"] = "Book Details";
           $this->view("store/bookdetails",$data);
         

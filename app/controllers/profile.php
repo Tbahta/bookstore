@@ -22,10 +22,11 @@ class Profile extends Controller{
          
         if(isset($_SESSION['logged'])){
             $data["Page_title"] = "Profile";
+            $data['role'] = $_SESSION['logged']['role'];
             if($_SESSION['logged']['role']=="customer"){
                 $this->view("store/profile",$data);
             } else if($_SESSION['logged']['role']=="admin"){
-                $this->view("admin/admin",$data);
+                $this->view("admin/profile",$data);
             }
             
         }else{

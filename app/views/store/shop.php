@@ -10,7 +10,7 @@
         // foreach($categories as $category)
         // display($category);
     }
-    
+ 
     ?>
 
        
@@ -140,7 +140,8 @@
                                     <div class="product-card">
                                         <div class="product-header">
                                             <a href="" class="author">
-                                                <?= $BOOK['category'];?>
+                                                <!-- <?= $BOOK['category'];?> -->
+                                                <!-- $data['categoryName'][0]['categoryName'] -->
                                             </a>
                                                 <h3><a href="<?=ROOT?>bookdetails/<?=$BOOK['slug']?>"><?= $BOOK['title'];?></a></h3>
                                         </div>
@@ -153,7 +154,7 @@
                                                         <img src="<?=ASSETS?>store/image/books/product-1.jpg" alt="">
                                                     </a> -->
                                                     <div class="hover-btns">
-                                                        <a href="<?=ROOT?>cart" class="single-btn">
+                                                        <a href="<?=ROOT?>bookdetails/<?=$BOOK['slug']?>" class="single-btn">
                                                             <i class="fas fa-shopping-basket"></i>
                                                         </a>
                                                         <!-- <a href="<?=ROOT?>wishlist" class="single-btn">
@@ -204,7 +205,7 @@
                                         <div class="product-card">
                                             <div class="product-header">
                                                 <a href="" class="author">
-                                                    <?= $BOOK['category'];?>
+                                                    <!-- <?= $BOOK['category'];?> -->
                                                 </a>
                                                     <h3><a href="<?=ROOT?>bookdetails/<?=$BOOK['slug']?>"><?= $BOOK['title'];?></a></h3>
                                             </div>
@@ -270,7 +271,7 @@
                                         <div class="product-card">
                                             <div class="product-header">
                                                 <a href="" class="author">
-                                                    <?= $BOOK['category'];?>
+                                                    <!-- <?= $data['categoryName'][0]['categoryName']?> -->
                                                 </a>
                                                     <h3><a href="<?=ROOT?>bookdetails/<?=$BOOK['slug']?>"><?= $BOOK['title'];?></a></h3>
                                             </div>

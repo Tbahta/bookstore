@@ -81,7 +81,7 @@
                             <h3 class="product-title"><?=$book['title']?></h3>
                             <ul class="list-unstyled">
                                 <li>Price: <span class="list-value"> £ <?=$book['price']?></span></li>
-                                <li>Category: <a href="#" class="list-value font-weight-bold"> <?=$book['category']?></a></li>
+                                <li>Category: <a href="#" class="list-value font-weight-bold"> <?=$data['categoryName'][0]['categoryName']?></a></li>
                                 <li>Publisher: <span class="list-value"> <?=$book['publisher']?></span></li>
                                 <li>Reward Points: <span class="list-value"> 200</span></li>
                                 <li>Availability: <span class="list-value"> In Stock</span></li>

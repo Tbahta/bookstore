@@ -34,8 +34,8 @@
 										<thead>
 											<tr>
 												<th class="pro-remove"></th>
-												<th class="pro-thumbnail">Image</th>
-												<th class="pro-title">Product</th>
+												<th class="pro-thumbnail">Cover</th>
+												<th class="pro-title">Book Title</th>
 												<th class="pro-price">Price</th>
 												<th class="pro-quantity">Quantity</th>
 												<th class="pro-subtotal">Total</th>
@@ -48,18 +48,27 @@
 												<td class="pro-remove"><a href="<?=ROOT?>cart/remove/<?=$row['id']?>"><i class="far fa-trash-alt"></i></a>
 												</td>
 												<td class="pro-thumbnail"><a href="#"><img
-														src="<?=$row['image1']?>" alt="Book"></a></td>
+														src="<?=ROOT . $row['image1']?>" alt="Book"></a></td>
 												<td class="pro-title"><a href="#"><?=$row['title']?></a></td>
 												<td class="pro-price"><span>$<?=$row['price']?></span></td>
-												<td class="pro-quantity">
-													<div class="pro-qty">
-														<div class="count-input-block">
-															<input type="number" class="form-control text-center"
-																value="1">
+												<td >
+													<div class="row" >
+														<div class="col-md-4 ">
+															<a href="<?=ROOT?>cart/subtract_quantity/<?=$row['id']?>"  style="float:right; font-size:26px;color:#e63946;" >—</i></a>
+															<!-- <script>window.load.href = "<?php //echo ROOT.'shop' ?>"</script> -->
+														</div>
+														<div class="col-md-3">
+															<input  oninput = "edit_quantity(this.value); alert('alerteddd')" type="text"  class="form-control p-0 text-center" readonly  value="<?=$row['cart_qty']?>"/>
+														</div>
+														<div class="col-md-4 ">
+															<a href="<?=ROOT?>cart/add_quantity/<?=$row['id']?> " style="float:left; font-size:26px;color:#06d6a0;">+</a>
+															<!-- <script>window.load.href = "<?php //echo ROOT.'shop' ?>"</script>     -->
 														</div>
 													</div>
+								
+												
 												</td>
-												<td class="pro-subtotal"><span>$395.00</span></td>
+												<td> <h5> $ <?= $row['cart_qty'] * $row['price']?> </h5> </td>
 											</tr>
 											<!-- Product Row End -->
 											<?php endforeach; ?>
@@ -77,13 +86,6 @@
 															<input type="submit" class="btn btn-outlined"
 																name="apply_coupon" value="Apply coupon">
 														</div>
-													</div>
-													<div class="update-block text-right">
-														<input type="submit" class="btn btn-outlined" name="update_cart"
-															value="Update cart">
-														<input type="hidden" id="_wpnonce" name="_wpnonce"
-															value="05741b501f"><input type="hidden"
-															name="_wp_http_referer" value="/petmark/cart/">
 													</div>
 												</td>
 											</tr>
@@ -130,21 +132,6 @@
 													<a href="product-details.html" class="hover-image">
 														<img src="image/products/product-1.jpg" alt="">
 													</a>
-													<div class="hover-btns">
-														<a href="cart.html" class="single-btn">
-															<i class="fas fa-shopping-basket"></i>
-														</a>
-														<a href="wishlist.html" class="single-btn">
-															<i class="fas fa-heart"></i>
-														</a>
-														<a href="compare.html" class="single-btn">
-															<i class="fas fa-random"></i>
-														</a>
-														<a href="#" data-bs-toggle="modal" data-bs-target="#quickModal"
-															class="single-btn">
-															<i class="fas fa-eye"></i>
-														</a>
-													</div>
 												</div>
 											</div>
 											<div class="price-block">
@@ -170,7 +157,7 @@
 													<a href="product-details.html" class="hover-image">
 														<img src="image/products/product-1.jpg" alt="">
 													</a>
-													<div class="hover-btns">
+													<!-- <div class="hover-btns">
 														<a href="cart.html" class="single-btn">
 															<i class="fas fa-shopping-basket"></i>
 														</a>
@@ -184,7 +171,7 @@
 															class="single-btn">
 															<i class="fas fa-eye"></i>
 														</a>
-													</div>
+													</div> -->
 												</div>
 											</div>
 											<div class="price-block">
@@ -210,7 +197,7 @@
 													<a href="product-details.html" class="hover-image">
 														<img src="image/products/product-2.jpg" alt="">
 													</a>
-													<div class="hover-btns">
+													<!-- <div class="hover-btns">
 														<a href="cart.html" class="single-btn">
 															<i class="fas fa-shopping-basket"></i>
 														</a>
@@ -224,7 +211,7 @@
 															class="single-btn">
 															<i class="fas fa-eye"></i>
 														</a>
-													</div>
+													</div> -->
 												</div>
 											</div>
 											<div class="price-block">
@@ -251,7 +238,7 @@
 													<a href="product-details.html" class="hover-image">
 														<img src="image/products/product-4.jpg" alt="">
 													</a>
-													<div class="hover-btns">
+													<!-- <div class="hover-btns">
 														<a href="cart.html" class="single-btn">
 															<i class="fas fa-shopping-basket"></i>
 														</a>
@@ -265,7 +252,7 @@
 															class="single-btn">
 															<i class="fas fa-eye"></i>
 														</a>
-													</div>
+													</div> -->
 												</div>
 											</div>
 											<div class="price-block">
@@ -286,12 +273,12 @@
 										</div>
 										<div class="product-card--body">
 											<div class="card-image">
-												<img src="image/products/product-6.jpg" alt="">
+												<img src="<?=ASSETS?>store/image/111.jpeg" alt="">
 												<div class="hover-contents">
 													<a href="product-details.html" class="hover-image">
 														<img src="image/products/product-4.jpg" alt="">
 													</a>
-													<div class="hover-btns">
+													<!-- <div class="hover-btns">
 														<a href="cart.html" class="single-btn">
 															<i class="fas fa-shopping-basket"></i>
 														</a>
@@ -305,7 +292,7 @@
 															class="single-btn">
 															<i class="fas fa-eye"></i>
 														</a>
-													</div>
+													</div> -->
 												</div>
 											</div>
 											<div class="price-block">
@@ -323,14 +310,39 @@
 							<div class="cart-summary">
 								<div class="cart-summary-wrap">
 									<h4><span>Cart Summary</span></h4>
-									<p>Sub Total <span class="text-primary">$1250.00</span></p>
-									<p>Shipping Cost <span class="text-primary">$00.00</span></p>
-									<h2>Grand Total <span class="text-primary">$1250.00</span></h2>
+
+									<?php if($CARTROWS):?>
+										<p style="font-size:24px; font-weight:bold;"> Grand Total <span class="text-primary">
+										<?php $total = 0; 
+										foreach($CARTROWS as $row):?>
+											<?php $total += $row['cart_qty'] * $row['price'] ; ?>
+											
+									<?php endforeach; ?>
+										
+									$  <?=$total?> </span></p>
+										<!-- <h4 class= "me-2"> $ <?=$total?></h4> </span> -->
+										<?php $_SESSION['total'] =$total;?>
+
+									<?php else:
+										unset($_SESSION['total']);
+									endif;  ?>
+
 								</div>
-								<div class="cart-summary-button">
+								<!-- <div class="cart-summary-button">
 									<a href="checkout.html" class="checkout-btn c-btn btn--primary">Checkout</a>
 									<button class="update-btn c-btn btn-outlined">Update Cart</button>
-								</div>
+								</div> -->
+
+								<?php if($CARTROWS):?>
+									<div  class= "d-flex justify-content-end">
+										<a href="<?=ROOT?>shop" class=" btn btn-outline-warning mx-2  " ><i class="bi bi-arrow-left-circle-fill m-1"></i> Continue Shopping</a> <span>
+										<a href="<?=ROOT?>checkout" id="paybtn"  class=" btn btn-outline-success text-dark" style="background-color:#06d6a0;">Checkout<i class="bi bi-arrow-right-circle-fill m-1"></i></a> </span>
+									</div>
+								<?php endif; ?>
+
+
+
+
 							</div>
 						</div>
 					</div>

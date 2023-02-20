@@ -2,16 +2,12 @@
 
 class Ajax_author extends Controller{
 
-     /**
-     *  defualt method - gets the categories from the input fields and passes them to a proper model
-     * to execute the required operation (create, delete, edit )
-     */
 
     public function index () {
        
         $data = file_get_contents("php://input");
         $data = json_decode($data); 
-        // print_r($data);
+    
 
         if(is_object($data) && isset($data->data_type)){
   
