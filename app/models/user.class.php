@@ -1,10 +1,8 @@
 <?php
-/**
- * Undocumented class
- */
+//model class for user
 class User{
-
-    public function signup($POST){
+    // function to register a new user
+    public function register($POST){
 
         //create instance to establish connection to the databse
        $instance = Database::db_connect();
@@ -17,11 +15,9 @@ class User{
        $phone       = trim($POST['phone']);
        $address     = trim($POST['address']);
        //$checkagree  = $POST['termscheck'];
-    //    display($POST);
  
-       //call validation function - from /core/functions.php
+       //call function to validate user input
        $error = validateInput($name, $email, $password,$password2,$phone,$address);
-        //    echo "error is: ".$error;
        if($error==""){
            $hashedPass = hash('sha1',$password);
            $data['name']     = $name; 
@@ -37,18 +33,18 @@ class User{
  
             //Before pushing data to database, check if there is a user with the same email already in the database
             $query        = "SELECT email FROM user WHERE email = :email limit 1";
-            $arr['email'] = $data['email'];
-            $check        = $instance->read($query,$arr);
+            $list['email'] = $data['email'];
+            $check        = $instance->read($query,$list);
             if(is_array($check) && count($check)>0){
                 $message ='<a href="'.ROOT.'signin" class="text-success">login</a> instead  <br/>';
                 $_SESSION['duplicateemail'] = "User with this email already exists, ".$message;
             }
             
             //One last check for userid before pushing data to database
-            $arr           = []; //unset the array from previous value
+            $list           = []; //unset the array from previous value
             $sql           = "SELECT userid FROM user WHERE userid = :userid limit 1";
-            $arr['userid'] = $data['userid'];
-            $check         = $instance->read($sql,$arr);
+            $list['userid'] = $data['userid'];
+            $check         = $instance->read($sql,$list);
             if(is_array($check)){
                 //generate another random userid
                 $data['userid']   = $this->generate_random_userid(60);  
@@ -69,13 +65,8 @@ class User{
 
     }
 
-       /**
-     * This function confirms user's registration and logs them in.
-     * @param array $POST
-     * @return void
-     */
+   //Function to sign in user
     public function signin($POST){
-        //Establish connection
        $instance = Database::db_connect();
        unset($_SESSION['error']); // unset previous errors
 
@@ -107,7 +98,6 @@ class User{
             $query = "SELECT * FROM user WHERE email = :email && password = :password limit 1";
             $result = $instance->read($query,$data);
             if(is_array($result)){
-                 //store logged user details
                 $_SESSION['logged']  = $result[0];
                 display($result[0]);
                 if($_SESSION['logged']['role']=="admin"){
@@ -140,24 +130,21 @@ class User{
 
     }
 
-    //create a function to validate login
+    //Function to validate user's login
     public function validateLogin($email, $password){
         $error = "";
         if (empty($email)) {
-            $error .= "Email is required";
+            $error .= "Email is required <br/>";
         }
         if (empty($password)) {
-            $error .= "Password is required";
+            $error .= "Password is required <br/>";
         }
         return $error;
     }
 
 
-       /**
-     * Checks if user is loggedin
-     * @return array
-     */
-    public function checkLogin($redirect = false){
+   //check if user is logged in
+    public function loginStatus($redirect = false){
         if(isset($_SESSION['logged'])){
             $user['userid'] = $_SESSION['logged']['userid'];
             $sql = "SELECT * FROM user WHERE userid = :userid limit 1";
@@ -173,14 +160,9 @@ class User{
             die;
         }
         return false;
-
     }
 
-        /**
-     * Generates a random user id for new user
-     * @param integer $length
-     * @return string
-     */
+     //generate a random userid
     public function generate_random_userid($len){
         
         $array = [0,1,2,3,4,5,6,7,8,9, 'A','a', 'B', 'b','C', 'c', 'D', 'd','E', 'e', 'F', 'f', 'G', 'g', 'H' ,'h', 'I', 'i', 'J', 'j' ,'K', 'k', 'L', 'l', 'M', 'm', 'N', 'n', 'O', 'o', 'P' ,'p' ,'Q','q', 'R', 'r', 'S', 's', 'T', 't' ,'U' ,'u', 'V', 'v', 'W', 'w' ,'X' ,'x' ,'Y' ,'y' ,'Z' ,'z'];
@@ -190,17 +172,10 @@ class User{
             $random = rand(0,61);
             $randomuserid .= $array[$random];
         }
- 
-        
          return $randomuserid;
- 
      }
 
-     /**
-     * unsets the session for loggin, and signs out a user
-     * Log user out 
-     * @return void
-     */
+    //sign out user
     public function signout(){
         if(isset($_SESSION['logged'])){
             unset($_SESSION['logged']);
@@ -210,6 +185,17 @@ class User{
         }
       
     }
+    //delete user profile
+    public function deleteProfile($email){
+        $conn =  Database::newInstance();
+        $query = "DELETE FROM user WHERE email ='$email' limit 1 ";
+        $result = $conn->write($query);
+        if($result){
+          unset($_SESSION['logged']);
+          header("location:" .ROOT);
+        }
+
+      }
 
 
 }

@@ -1,9 +1,10 @@
 <?php 
     // $this->view( "store/header.php", $data);
-    include "header.php";
+    // include "header.php";
+    $this->view( "store/header", $data);
     
-    if(is_array($BOOKS)){
-        // foreach($BOOKS as $row)
+    if(is_array($data['BOOKS'])){
+        // foreach($data['BOOKS'] as $row)
         // display($row);
     }
     if(is_array($categories)){
@@ -165,12 +166,12 @@
                 <div class="row space-db--30">
                     <div class="col-lg-6 mb--30">
                         <a href="" class="promo-image promo-overlay">
-                            <img src="<?=ASSETS?>store/image/bg-images/promo-banner-with-text.jpg" alt="">
+                            <img src="<?=ASSETS?>store/image/promotion.png" alt="">
                         </a>
                     </div>
                     <div class="col-lg-6 mb--30">
                         <a href="" class="promo-image promo-overlay">
-                            <img src="<?=ASSETS?>store/image/bg-images/promo-banner-with-text-2.jpg" alt="">
+                            <img src="<?=ASSETS?>store/image/promotion2.png" alt="">
                         </a>
                     </div>
                 </div>
@@ -187,7 +188,7 @@
                         <li class="nav-item">
                             <a class="nav-link active" id="shop-tab" data-bs-toggle="tab" href="#shop" role="tab"
                                 aria-controls="shop" aria-selected="true">
-                                Featured Products
+                                Featured Books
                             </a>
                             <span class="arrow-icon"></span>
                         </li>
@@ -201,7 +202,7 @@
                         <li class="nav-item">
                             <a class="nav-link" id="woman-tab" data-bs-toggle="tab" href="#woman" role="tab"
                                 aria-controls="woman" aria-selected="false">
-                                Most view products
+                                Most viewed Books
                             </a>
                             <span class="arrow-icon"></span>
                         </li>
@@ -424,7 +425,7 @@
                                             {"breakpoint":490, "settings": {"slidesToShow": 1} }
                                         ]'>
                      <!-- Single book Children's books  -->
-                    <?php if(is_array($CHILDREN)): ?>
+                    <?php if(is_array($CHILDREN)  && count($CHILDREN) >=1): ?>
                         <?php foreach($CHILDREN as $CHILD): ?>
                         <div class="single-slide">
                             <div class="product-card card-style-list">

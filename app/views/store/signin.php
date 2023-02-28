@@ -48,7 +48,7 @@
 										<button type="submit" class="btn btn-outlined">Login</button>
 									</div>
 									<div class="col-md-6 mt--15">
-										<p>Don't have an account? <a href="<?=ROOT?>signup" class="text-body"><u class="text-success">Signup</u></a></p> 
+										<p>Don't have an account? <a href="<?=ROOT?>register" class="text-body"><u class="text-success">register</u></a></p> 
 									</div>
 								</div>
 							</div>

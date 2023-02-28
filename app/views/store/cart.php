@@ -1,6 +1,6 @@
 <?php 
-    // $this->view( "store/header.php", $data);
-    include "header.php";
+    $this->view( "store/header", $data);
+
     ?>
         
 		<section class="breadcrumb-section">
@@ -328,15 +328,11 @@
 									endif;  ?>
 
 								</div>
-								<!-- <div class="cart-summary-button">
-									<a href="checkout.html" class="checkout-btn c-btn btn--primary">Checkout</a>
-									<button class="update-btn c-btn btn-outlined">Update Cart</button>
-								</div> -->
 
 								<?php if($CARTROWS):?>
 									<div  class= "d-flex justify-content-end">
-										<a href="<?=ROOT?>shop" class=" btn btn-outline-warning mx-2  " ><i class="bi bi-arrow-left-circle-fill m-1"></i> Continue Shopping</a> <span>
-										<a href="<?=ROOT?>checkout" id="paybtn"  class=" btn btn-outline-success text-dark" style="background-color:#06d6a0;">Checkout<i class="bi bi-arrow-right-circle-fill m-1"></i></a> </span>
+										<a href="<?=ROOT?>shop" class=" btn btn-outline-warning mx-2  " style="color:#62ab00;"><i class="bi bi-arrow-left-circle-fill m-1"></i> Continue Shopping</a> <span>
+										<a href="<?=ROOT?>checkout" id="paybtn"  class=" btn btn-outline-success text-light" style="background-color:#62ab00;">Checkout<i class="bi bi-arrow-right-circle-fill m-1"></i></a> </span>
 									</div>
 								<?php endif; ?>
 

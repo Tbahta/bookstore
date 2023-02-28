@@ -1,27 +1,27 @@
 <?php
 
-
+// class to handle profile functionality - updating profile, deleting profile, etc
 class Profile extends Controller{
 
      function index(){
            // check if user is logged in
            $user = $this->loadModel('user');
-           $user_info = $user->checkLogin(true);
-           if(is_array($user_info)){
+           $userdata = $user->loginStatus(true);
+           if(is_array($userdata)){
                 //collect user data to pass to profile view
-                $data['email']  = $user_info['email'];
-                $data['name']        = $user_info['name'];
-                $data['role']        = $user_info['role'];
-                $data['userid']      = $user_info['userid'];
-                $data['phone']       = $user_info['phone'];
-                $data['address']     = $user_info['address'];
+                $data['email']  = $userdata['email'];
+                $data['name']        = $userdata['name'];
+                $data['role']        = $userdata['role'];
+                $data['userid']      = $userdata['userid'];
+                $data['phone']       = $userdata['phone'];
+                $data['address']     = $userdata['address'];
                 
            }
 
         //you can do this if passing data to view
          
         if(isset($_SESSION['logged'])){
-            $data["Page_title"] = "Profile";
+            $data["pageTitle"] = "Profile";
             $data['role'] = $_SESSION['logged']['role'];
             if($_SESSION['logged']['role']=="customer"){
                 $this->view("store/profile",$data);
@@ -31,39 +31,37 @@ class Profile extends Controller{
             
         }else{
             $data=[];
-            $data["Page_title"] = "Home Page";
+            $data["pageTitle"] = "Home Page";
             $this->view("store/index",$data);
             die;
         }
         
     }
-
+    // function to delete user profile
     function deleteAccount(){
 
         $user = $this->loadModel('user');
-        $user_info = $user->checkLogin(true);
-        if(is_array($user_info)){
+        $userdata = $user->loginStatus(true);
+        if(is_array($userdata)){
                 //collect user data to pass to profile view
-             $data['email']  = $user_info['email'];
-             $data['name']        = $user_info['name'];
-             $data['role']        = $user_info['role'];
-             $data['userid']      = $user_info['userid'];
-             $data['phone']       = $user_info['phone'];
-             $data['address']     = $user_info['address'];
+             $data['email']    = $userdata['email'];
+             $data['name']     = $userdata['name'];
+             $data['role']     = $userdata['role'];
+             $data['userid']   = $userdata['userid'];
+             $data['phone']    = $userdata['phone'];
+             $data['address']  = $userdata['address'];
               
         }
 
-        $data["Page_title"] = "Profile";
-        // $this->view("store/profile",$data);
-
+        $data["pageTitle"] = "Profile";
 
         if(isset($_SESSION['logged'])){
 
             if($_SESSION['logged']['role']=="customer"){
-               $user->deleteProfile($data['user_email']);
+               $user->deleteProfile($data['email']);
                $this->view("store/index",$data);
             } else if($_SESSION['logged']['role']=="admin"){
-                // if you can't delete admin account, you can redirect to 404 page
+                // don't delete admin profile
                 $this->view("store/404",$data);
             }
             

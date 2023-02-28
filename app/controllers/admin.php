@@ -1,81 +1,168 @@
 <?php
+// class handles views of admin area including books, authors, categories, publishers etc
 class Admin extends Controller
 {
-    //defualt method - the feeds the home page
     public function index()
     {
-        // check if user is logged in
+        //check if user is logged in
         $user = $this->loadModel('user');
-        $user_info = $user->checkLogin(true);
-        if (is_array($user_info)) {
-            $data['email']  = $user_info['email'];
-            $data['name']        = $user_info['name'];
-            $data['role']        = $user_info['role'];
-            $data['userid']      = $user_info['userid'];
-            $data['phone']       = $user_info['phone'];
-            $data['address']     = $user_info['address'];
+        $userdata = $user->loginStatus(true);
+        if (is_array($userdata)) {
+            $data['email']    = $userdata['email'];
+            $data['name']     = $userdata['name'];
+            $data['role']     = $userdata['role'];
+            $data['userid']   = $userdata['userid'];
+            $data['phone']    = $userdata['phone'];
+            $data['address']  = $userdata['address'];
         }
-
-         //check if a session for login is set and if it is set, and user is admin, get them to the dashboard
-        //otherwise, get them to signin 
         
         if(isset($_SESSION['logged'])){
 
             if($_SESSION['logged']['role']=="admin"){
-                $data["Page_title"] = "Admin";
-                // $this->view("admin/index",$data); 
+                $data["pageTitle"] = "Admin";; 
                 $this->view("admin/admin",$data); 
             } else if($_SESSION['logged']['role']=="customer"){
-                $data["Page_title"] = "Profile";
+                $data["pageTitle"] = "Profile";
                 $this->view("store/profile",$data); //will take non admin to 404 page
             }
             
         }else{
-            //intentionally lead them to 404
             $data=[];
-            $data["Page_title"] = "Page not found";
+            $data["pageTitle"] = "Page not found";
             $this->view("store/404",$data);
         }
     }
 
-     /**
-      * categories is admin facing method, checks if user is logged in and loads the categories
-      * if user has the required level of access
-      */
-      function categories(){
+
+    //This method is used to pull data related to books from the database and pass it to the view
+       
+      function books(){
+
+        $user = $this->loadModel('User');
+        $userdata = $user->loginStatus();
+        if(is_array($userdata)){
+            //collect user info
+            $data['email']    = $userdata['email'];
+            $data['name']     = $userdata['name'];
+            $data['role']     = $userdata['role'];
+            $data['userid']   = $userdata['userid'];
+            $data['phone']    = $userdata['phone'];
+            $data['address']  = $userdata['address'];
+        }
+     
+        $conn =  Database::newInstance();
+        $sql= "SELECT *FROM book order by title";
+        $books = $conn->read($sql,[]); 
+      
+        //Get categories and feed the lookup in the books modal while adding a new book
+        $query= "SELECT *FROM category order by categoryName";
+        $categories = $conn->read($query,[]); 
+        $data["categories"] = $categories;
+
+
+        //Get authors and feed the lookup in the books modal while adding a new book
+        $query= "SELECT *FROM author order by name";
+        $authors = $conn->read($query,[]); 
+        $data["authors"] = $authors;
+
+        //Get publishers and feed the lookup in the books modal while adding a new book
+        $query= "SELECT *FROM publisher order by publisherName";
+        $publishers = $conn->read($query,[]); 
+        $data["publishers"] = $publishers;
+    
+        $book = $this->loadModel('Book');
+        $tblRows = $book->make_table($books);
+        $data["tblRows"] = $tblRows;
+        $data["books"] = $books;
+
+        if(is_array($books)){
+            $data["tblRows"] = $tblRows;
+            $data["books"] = $books;  
+       }
+
+        $data["pageTitle"] = "Books";
+        if(isset($_SESSION['logged'])){
+            if($_SESSION['logged']['role']=="admin"){
+                $this->view("admin/books",$data);
+            }       
+        }else{
+            $this->view("store/404",$data);
+        }
+       
+  
+    }
+
+    function authors(){
       
         $user = $this->loadModel('user');
-        $user_info = $user->checkLogin();
-        if(is_array($user_info)){
-            $data['email']    = $user_info['email'];
-            $data['name']     = $user_info['name'];
-            $data['role']     = $user_info['role'];
-            $data['userid']   = $user_info['userid'];
-            $data['phone']    = $user_info['phone'];
-            $data['address']  = $user_info['address'];
+        $userdata = $user->loginStatus();
+        if(is_array($userdata)){
+            $data['email']    = $userdata['email'];
+            $data['name']     = $userdata['name'];
+            $data['role']     = $userdata['role'];
+            $data['userid']   = $userdata['userid'];
+            $data['phone']    = $userdata['phone'];
+            $data['address']  = $userdata['address'];
     
         }
       
+        //Get authors to populate the backend
+        $conn =  Database::newInstance();
+        $sql= "SELECT *FROM author order by id ";
+        $authors = $conn->read($sql,[]); 
+        
+        $author = $this->loadModel('Author');
+        $tblRows = $author->make_table($authors);
+        $data["tblRows"] = $tblRows;
+        $data["authors"] = $authors;
+        if(is_array($authors)){
+             $data["tblRows"] = $tblRows;
+             $data["authors"] = $authors;
+            
+        }
+
+        $data["pageTitle"] = "Authors";
+        if(isset($_SESSION['logged'])){
+            if($_SESSION['logged']['role']=="admin"){
+                $this->view("admin/authors",$data);
+            } else if($_SESSION['logged']['role']=="customer"){
+                $this->view("store/index",$data); //will take non admin to 404 page
+            }
+            
+        }else{
+            $this->view("store/404",$data);
+        }
+    }
+
+    // Function to handle the categories page in the admin area
+    function categories(){
       
-        //get table displayed in the categories area
+        $user = $this->loadModel('user');
+        $userdata = $user->loginStatus();
+        if(is_array($userdata)){
+            $data['email']    = $userdata['email'];
+            $data['name']     = $userdata['name'];
+            $data['role']     = $userdata['role'];
+            $data['userid']   = $userdata['userid'];
+            $data['phone']    = $userdata['phone'];
+            $data['address']  = $userdata['address'];
+    
+        }
+        //get category data to be displayed in dashboard
         $conn =  Database::newInstance();
         $sql= "SELECT *FROM category order by id ";
         $categories = $conn->read($sql,[]); 
         
         $category = $this->loadModel('Category');
-        $tbl_rows = $category->make_table($categories);
-        $data["tbl_rows"] = $tbl_rows;
-        // print_r($tbl_rows);
+        $tblRows = $category->make_table($categories);
+        $data["tblRows"] = $tblRows;
         $data["categories"] = $categories;
         if(is_array($categories)){
-             $data["tbl_rows"] = $tbl_rows;
-             $data["categories"] = $categories;
-            
+             $data["tblRows"] = $tblRows;
+             $data["categories"] = $categories;     
         }
 
-
-        $data["Page_title"] = "Categories";
-        //check loggin and credential status
+        $data["pageTitle"] = "Categories";
         if(isset($_SESSION['logged'])){
 
             if($_SESSION['logged']['role']=="admin"){
@@ -85,185 +172,47 @@ class Admin extends Controller
             }
             
         }else{
-            //intentionally lead them to 404
             $this->view("store/404",$data);
         }
-       
-  
     }
 
-
-     /**
-      * books is admin facing method, checks if user is logged in and loads the books
-      * if user has the required level of access
-      */
-      function books(){
-      
-        // check if user is logged in
-        $user = $this->loadModel('User');
-        $user_info = $user->checkLogin();
-        if(is_array($user_info)){
-            $data['email']    = $user_info['email'];
-            $data['name']     = $user_info['name'];
-            $data['role']     = $user_info['role'];
-            $data['userid']   = $user_info['userid'];
-            $data['phone']    = $user_info['phone'];
-            $data['address']  = $user_info['address'];
-
-        }
-   
-       
-        $conn =  Database::newInstance();
-        $sql= "SELECT *FROM book order by title";
-        $books = $conn->read($sql,[]); 
-      
-        // get categories to feed the combobox in book modal
-        $query= "SELECT *FROM category order by categoryName";
-        $categories = $conn->read($query,[]); 
-        $data["categories"] = $categories;
-
-
-        //get authors to feed the combobox in book modal
-        $query= "SELECT *FROM author order by name";
-        $authors = $conn->read($query,[]); 
-        $data["authors"] = $authors;
-
-
-
-       //get publishers to feed the combobox in book modal
-        $query= "SELECT *FROM publisher order by publisherName";
-        $publishers = $conn->read($query,[]); 
-        $data["publishers"] = $publishers;
-             
-
-
-
-        $book = $this->loadModel('Book');
-        $tbl_rows = $book->make_table($books);
-        $data["tbl_rows"] = $tbl_rows;
-        $data["books"] = $books;
-        // print_r($tbl_rows);
-        if(is_array($books)){
-            $data["tbl_rows"] = $tbl_rows;
-            $data["books"] = $books;
-           
-       }
-
-
-        $data["Page_title"] = "Books";
-        if(isset($_SESSION['logged'])){
-
-            if($_SESSION['logged']['role']=="admin"){
-                $this->view("admin/books",$data);
-            } 
-            // else if($_SESSION['logged']['role']=="customer"){
-            //     $this->view("admin/home",$data); //will take non admin to 404 page
-            // }
-            
-        }else{
-            //intentionally lead them to 404
-            $this->view("store/404",$data);
-        }
-       
-  
-    }
-
-
-
-
-    function authors(){
-      
-        $user = $this->loadModel('user');
-        $user_info = $user->checkLogin();
-        if(is_array($user_info)){
-            $data['email']    = $user_info['email'];
-            $data['name']     = $user_info['name'];
-            $data['role']     = $user_info['role'];
-            $data['userid']   = $user_info['userid'];
-            $data['phone']    = $user_info['phone'];
-            $data['address']  = $user_info['address'];
-    
-        }
-      
-      
-        //get table displayed in the authors area
-        $conn =  Database::newInstance();
-        $sql= "SELECT *FROM author order by id ";
-        $authors = $conn->read($sql,[]); 
-        
-        $author = $this->loadModel('Author');
-        $tbl_rows = $author->make_table($authors);
-        $data["tbl_rows"] = $tbl_rows;
-        // print_r($tbl_rows);
-        $data["authors"] = $authors;
-        if(is_array($authors)){
-             $data["tbl_rows"] = $tbl_rows;
-             $data["authors"] = $authors;
-            
-        }
-
-
-        $data["Page_title"] = "Authors";
-        //check loggin and credential status
-        if(isset($_SESSION['logged'])){
-
-            if($_SESSION['logged']['role']=="admin"){
-                $this->view("admin/authors",$data);
-            } else if($_SESSION['logged']['role']=="customer"){
-                $this->view("store/index",$data); //will take non admin to 404 page
-            }
-            
-        }else{
-            //intentionally lead them to 404
-            $this->view("store/404",$data);
-        }
-
-    }
-
+    // Function to handle the publishers page in the admin area/dashboard
     function publishers(){
       
         $user = $this->loadModel('user');
-        $user_info = $user->checkLogin();
-        if(is_array($user_info)){
-            $data['email']    = $user_info['email'];
-            $data['name']     = $user_info['name'];
-            $data['role']     = $user_info['role'];
-            $data['userid']   = $user_info['userid'];
-            $data['phone']    = $user_info['phone'];
-            $data['address']  = $user_info['address'];
+        $userdata = $user->loginStatus();
+        if(is_array($userdata)){
+            $data['email']    = $userdata['email'];
+            $data['name']     = $userdata['name'];
+            $data['role']     = $userdata['role'];
+            $data['userid']   = $userdata['userid'];
+            $data['phone']    = $userdata['phone'];
+            $data['address']  = $userdata['address'];
     
         }
       
-      
-        //get table displayed in the publishers area
+         //get publisher data to be displayed in dashboard
         $conn =  Database::newInstance();
         $sql= "SELECT *FROM publisher order by id ";
         $publishers = $conn->read($sql,[]); 
         
         $publisher = $this->loadModel('Publisher');
-        $tbl_rows = $publisher->make_table($publishers);
-        $data["tbl_rows"] = $tbl_rows;
-        // print_r($tbl_rows);
+        $tblRows = $publisher->make_table($publishers);
+        $data["tblRows"] = $tblRows;
         $data["publishers"] = $publishers;
         if(is_array($publishers)){
-             $data["tbl_rows"] = $tbl_rows;
-             $data["publishers"] = $publishers;
-            
+             $data["tblRows"] = $tblRows;
+             $data["publishers"] = $publishers;     
         }
-
-
-        $data["Page_title"] = "Publishers";
-        //check loggin and credential status
+        $data["pageTitle"] = "Publishers";
         if(isset($_SESSION['logged'])){
 
             if($_SESSION['logged']['role']=="admin"){
                 $this->view("admin/publishers",$data);
             } else if($_SESSION['logged']['role']=="customer"){
                 $this->view("store/index",$data); //will take non admin to 404 page
-            }
-            
+            }      
         }else{
-            //intentionally lead them to 404
             $this->view("store/404",$data);
         }
        

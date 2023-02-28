@@ -82,7 +82,9 @@
                             <ul class="list-unstyled">
                                 <li>Price: <span class="list-value"> £ <?=$book['price']?></span></li>
                                 <li>Category: <a href="#" class="list-value font-weight-bold"> <?=$data['categoryName'][0]['categoryName']?></a></li>
-                                <li>Publisher: <span class="list-value"> <?=$book['publisher']?></span></li>
+                                <li>Publisher: <a href="#" class="list-value font-weight-bold"> <?=$data['publisherName'][0]['publisherName']?></a></li>
+                                <li>Author: <a href="#" class="list-value font-weight-bold"> <?=$data['author'][0]['name']?></a></li>
+                                <!-- <li>Publisher: <span class="list-value"> <?=$book['publisher']?></span></li> -->
                                 <li>Reward Points: <span class="list-value"> 200</span></li>
                                 <li>Availability: <span class="list-value"> In Stock</span></li>
                             </ul>

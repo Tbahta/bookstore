@@ -54,11 +54,10 @@
                         <img src="<?=ASSETS?>store/image/logo.png" alt="log -image">
                         </div>
                         <div class="footer-contact">
-                            <p><span class="label">Address:</span><span class="text">Example Street 98, HH2 BacHa, New
-                                    York,
-                                    USA</span></p>
-                            <p><span class="label">Phone:</span><span class="text">+18088 234 5678</span></p>
-                            <p><span class="label">Email:</span><span class="text">suport@hastech.com</span></p>
+                            <p><span class="label">Address:</span><span class="text">Haward Street, LX.,LONDON, UK                                    York,
+                                    </span></p>
+                            <p><span class="label">Phone:</span><span class="text">+(44) 12 234 5678</span></p>
+                            <p><span class="label">Email:</span><span class="text">fakesupport@email.com</span></p>
                         </div>
                     </div>
                 </div>
@@ -72,7 +71,7 @@
                             <li><a href="">New products</a></li>
                             <li><a href="">Best sales</a></li>
                             <li><a href="">Contact us</a></li>
-                            <li><a href="">Sitemap</a></li>
+             
                         </ul>
                     </div>
                 </div>
@@ -86,7 +85,7 @@
                             <li><a href="">About Us</a></li>
                             <li><a href="">Stores</a></li>
                             <li><a href="">Contact us</a></li>
-                            <li><a href="">Sitemap</a></li>
+             
                             <?php if(isset($_SESSION['logged']) && $_SESSION['logged']['role'] == "admin"):?>
                              <li><a href="<?=ROOT?>admin">Admin</a></li>
                             <?php endif;?>
@@ -119,15 +118,13 @@
         </div>
         <div class="footer-bottom">
             <div class="container">
-                <p class="copyright-heading">Suspendisse in auctor augue. Cras fermentum est ac fermentum tempor. Etiam
-                    vel
-                    magna volutpat, posuere eros</p>
+                <p class="copyright-heading"> Some sample content here ...</p>
                 <a href="#" class="payment-block">
                     <img src="<?=ASSETS?>store/image/icon/payment.png" alt="">
                 </a>
-                <p class="copyright-text">Copyright © 2021 <a href="#" class="author">Pustok</a>. All Right Reserved.
+                <p class="copyright-text">Copyright © 2023 <a href="#" class="author"> Densa Bookstore</a>. All Right Reserved.
                     <br>
-                    Design By Pustok</p>
+                    Dev By Bahta @Template Pustok</p>
             </div>
         </div>
     </footer>

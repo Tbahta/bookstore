@@ -10,14 +10,14 @@ $this->view("store/header",$data);
 
      .payment
 	    {
-		    border:1px solid #f8b844;
+		    border:1px solid #bd0018;
 		    height:280px;
             border-radius:5px;
             background:#fff;
 	    }
        .payment_header
        {
-	       background:#f8b844;
+	       background:#bd0018;
 	       padding:20px;
            border-radius:5px 5px 0px 0px;
 	   
@@ -54,11 +54,11 @@ $this->view("store/header",$data);
         .content a
         {
             width:200px;
-            height:35px;
+            height:40px;
             color:#fff;
             border-radius:30px;
-            padding:5px 10px;
-            background:#f8b844;
+            padding:10px 10px;
+            background:#62ab00;
             transition:all ease-in-out 0.3s;
         }
 
@@ -84,9 +84,9 @@ $this->view("store/header",$data);
                <div class="check"><i class="fa fa-exclamation-triangle" aria-hidden="true"></i></div>
             </div>
             <div class="content">
-               <h1>Shame ! Something Went Wrong</h1>
-               <p class="mb-2">The transaction has been cancelled. Go to checkout page </p>
-               <a class="p-2 m-3" href="<?=ROOT?>checkout">GET ME BACKk</a>
+               <h1>Oops!</h1>
+               <p class="mb-2">The transaction is cancelled. Head back to ... </p>
+               <a class="p-2 m-3" href="<?=ROOT?>checkout"> Checkout</a>
             </div>
             
          </div>

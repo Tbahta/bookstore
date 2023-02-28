@@ -1,5 +1,9 @@
 <?php
-	include "header.php";
+	// include "header.php";
+	$this->view("store/header",$data);
+	// if(isset($_SESSION['CART'])){
+	// 	unset($_SESSION['CART']);
+	// }
 ?>
 			<!--Off Canvas Navigation Start-->
 			<aside class="off-canvas-wrapper">

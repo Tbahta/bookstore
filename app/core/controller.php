@@ -1,10 +1,9 @@
 <?php
 
-// Path: app\core\controller.php
-// This is the base controller class
+// this is the base controller class that all other controllers extend from
 class Controller {
 
- //This method is used to load a view and pass data to it
+ //Method to load a view and pass param data if it exists
   protected function view($view, $data = []) {
       
       extract($data); //using this, we can access each element inside $data  can be echoed as a ssingle variable
@@ -16,7 +15,7 @@ class Controller {
         }
   }
 
-  // This method is used to load a model
+   //Method to load a model and returns model if it exists or false if it doesn't
   protected function loadModel($model) {
     if(file_exists("../app/models/". strtolower($model) . ".class.php")) {
         include "../app/models/".strtolower($model).".class.php";

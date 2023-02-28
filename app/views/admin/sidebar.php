@@ -14,12 +14,12 @@
               	  <h5 class="centered" style="font-size:14px;"><?=$data['email']?></h5>	
 
  
-                  <li class="sub-menu">
+                  <!-- <li class="sub-menu">
                     <a href="<?=ROOT?>admin" >
                       <i class="fa fa-dashboard"></i>
                           <span>Dashboard</span>
                       </a>
-                  </li>
+                  </li> -->
 
 
                   <li class="sub-menu">
@@ -53,7 +53,13 @@
                       </a>
                   </li>
                   
-                    <li class="sub-menu">
+                    
+                  <li style="margin-top:20px;">
+                    
+                    <p> Future Enhancements</p>
+                    <hr>
+                  </li>
+                  <li class="sub-menu">
                       <a href="<?=ROOT?>admin/users" >
                       <i class="fa fa-list-alt"></i>
                           <span>Users</span>
@@ -62,11 +68,6 @@
                           <li><a  href="<?=ROOT?>admin/users">View Categories</a></li>
                           <li><a  href="<?=ROOT?>admin/customers">View Categories</a></li>
                       </ul>
-                  </li>
-                  <li style="margin-top:20px;">
-                    
-                    <p> Future Enhancements</p>
-                    <hr>
                   </li>
 
                   <li class="sub-menu">
@@ -108,6 +109,6 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper site-min-height">
-          	<h3><i class="fa fa-angle-right"></i> <?= ucwords($data['Page_title'])?></h3>
+          	<h3><i class="fa fa-angle-right"></i> <?= ucwords($data['pageTitle'])?></h3>
           	<div class="row mt">
           		<div class="col-lg-12">

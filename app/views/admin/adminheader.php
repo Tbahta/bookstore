@@ -16,7 +16,7 @@ $conn = $db->db_connect();
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
-    <title>DENSA BOOK STORE - <?=$data["Page_title"];?></title>
+    <title>DENSA BOOK STORE - <?=$data["pageTitle"];?></title>
 
     <!-- Bootstrap core CSS -->
     <link href="<?=ASSETS?>admin/css/bootstrap.css" rel="stylesheet">

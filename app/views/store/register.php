@@ -24,7 +24,7 @@
 							<div class="login-form">
 								<h4 class="login-title">New Customer</h4>
 								<p><span class="font-weight-small">I am a new customer</span></p>
-								<span class="text-danger"> <?php checkErrorMessage();?></span>
+								<span class="text-danger"> <?php errorMessage();?></span>
 								<div class="row">
 									<div class="col-lg-6  mb--15">
 										<input name="name" class="mb-0 form-control" type="text" id="name"

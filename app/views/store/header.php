@@ -12,7 +12,7 @@
     // $category = $this->loadModel('Category');
     $categories = $conn->read($sql,[]); 
     $data['categories'] = $conn->read($sql,[]);
-   
+  
 
 ?>
 <!DOCTYPE html>
@@ -21,11 +21,12 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>DENSA BOOK STORE | <?php echo $data['Page_title'];?></title>
+    <title>DENSA BOOK STORE | <?php echo $data['pageTitle'];?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Use Minified Plugins Version For Fast Page Load -->
     <link rel="stylesheet" type="text/css" media="screen" href="<?=ASSETS?>store/css/plugins.css" />
     <link rel="stylesheet" type="text/css" media="screen" href="<?=ASSETS?>store/css/main.css" />
+    <link rel="stylesheet" type="text/css" media="screen" href="<?=ASSETS?>store/css/custom.css" />
     <!-- <link rel="shortcut icon" type="image/x-icon" href="<?=ASSETS?>store/image/favicon.ico"> -->
 </head>
 
@@ -53,15 +54,15 @@
                                 <div class="cart-widget">
                                     <div class="login-block">
                                     <ul class="nav justify-content-center">
-                                    <?php if(isset($data['user_email'])):?>  
+                                    <?php if(isset($_SESSION['logged'])):?>  
                                         <li class="nav-item">
                                             <a  href="<?=ROOT?>signout">Logout  </a> 
                                         </li>
                                         <li class="nav-item">
-                                            <?php if($data['role']=="admin"):?>
+                                            <?php if($_SESSION['logged']['role']=="admin"):?>
                                                 <span>&#160;</span> <a  href="<?=ROOT?>admin">  Dashboard  </a>
                                             <?php else:?>
-                                                <a  href="<?=ROOT?>profile">My Account  </a>
+                                                <!-- <a  href="<?=ROOT?>profile">My Account  </a> -->
                                             <span>&#160;</span>   <a  href="<?=ROOT?>profile">My Account  </a>
                                             <?php endif;?>
                                         </li>
@@ -70,49 +71,71 @@
                                         <a href="<?=ROOT?>signin">Login</a> <br>
                                     </li>
                                     <li class="nav-item">
-                                        <span>&#160;</span><a href="<?=ROOT?>signup">Register</a>
+                                        <span>&#160;</span><a href="<?=ROOT?>register">Register</a>
                                     </li>
                                     <?php endif;?>
+                                    <li class="nav-item" id="shopping-cart-text">
+                                        <span>&#160;</span><a href="<?=ROOT?>cart">Shopping Cart</a>
+                                    </li>
                                     </ul>
                                     </div>
-                                    <div class="cart-block">
-                                        <div class="cart-total">
-                                            <span class="text-number">
-                                                1
-                                            </span>
-                                            <span class="text-item">
-                                                Shopping Cart
-                                            </span>
-                                            <span class="price">
-                                                £0.00
-                                                <i class="fas fa-chevron-down"></i>
-                                            </span>
-                                        </div>
-                                        <div class="cart-dropdown-block">
-                                            <div class=" single-cart-block ">
-                                                <div class="cart-product">
-                                                    <a href="<?=ROOT?>product-details" class="image">
-                                                        <img src="<?=ASSETS?>store/image/products/cart-product-1.jpg" alt="">
-                                                    </a>
-                                                    <div class="content">
-                                                        <h3 class="title"><a href="<?=ROOT?>product-details">Kodak PIXPRO
-                                                                Astro Zoom AZ421 16 MP</a>
-                                                        </h3>
-                                                        <p class="price"><span class="qty">1 ×</span> £87.34</p>
-                                                        <button class="cross-btn"><i class="fas fa-times"></i></button>
+                                    <!-- <span class="nav-item" id="shopping-cart-text" style="cursor:pointer;">
+                                        <a href="<?=ROOT?>cart">Shopping Cart</a>
+                                    </span> -->
+                                    <?php if(isset($_SESSION['CART_ITEMS']) && is_array(($_SESSION['CART_ITEMS']))):?>
+                                            <script type="text/javascript"> document.querySelector('#shopping-cart-text').style.display = "none";</script>
+                                            <div class="cart-block">
+                                                <div class="cart-total">
+                                                    <span class="text-number">
+                                                    <?php 
+                                                        $qty = 0; 
+                                                        foreach($_SESSION['CART_ITEMS'] as $item){
+                                                            $qty += $item['cart_qty']; 
+                                                        }
+                                                        ?>
+                                                        <?=$qty?>
+                                                    </span>
+                                                    <span class="text-item">
+                                                        Shopping Cart
+                                                    </span>
+                                                    <span class="price">
+                                                    <?php 
+                                                        $total = 0; 
+                                                        foreach($_SESSION['CART_ITEMS'] as $item){
+                                                            $total += $item['price']; 
+                                                        }
+                                                        ?>
+                                                       <!-- £<?php $total;?> -->
+                                                        <i class="fas fa-chevron-down"></i>
+                                                    </span>
+                                                </div>
+                                                <div class="cart-dropdown-block">
+                                                    <div class=" single-cart-block ">
+                                                        <div class="cart-product" style="display:block;">
+                                                            <!-- <a href="<?=ROOT?>product-details" class="image">
+                                                                <img src="<?=ASSETS?>store/image/products/cart-product-1.jpg" alt="">
+                                                            </a> -->
+                                                            <?php foreach($_SESSION['CART_ITEMS'] as $item):?>
+                                                            <div class="content">
+                                                                <span class="title"><?=$item['title']?></span>
+                                                                <span class="price"><span class="qty"><?=$item['cart_qty']?>x</span> £<?=$item['price']?></span>
+                                                                <button class="cross-btn"><i class="fas fa-times"></i></button>
+                                                            </div>
+                                                            <?php endforeach;?>
+                                                        </div>
+                                                    </div>
+                                                    <div class=" single-cart-block ">
+                                                        <div class="btn-block">
+                                                            <a href="<?=ROOT?>cart" class="btn">View Cart <i
+                                                                    class="fas fa-chevron-right"></i></a>
+                                                            <a href="<?=ROOT?>checkout" class="btn btn--primary">Check Out <i
+                                                                    class="fas fa-chevron-right"></i></a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class=" single-cart-block ">
-                                                <div class="btn-block">
-                                                    <a href="cart.html" class="btn">View Cart <i
-                                                            class="fas fa-chevron-right"></i></a>
-                                                    <a href="checkout.html" class="btn btn--primary">Check Out <i
-                                                            class="fas fa-chevron-right"></i></a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                        <?php // endif;?>
+                                    <?php endif;?>
                                 </div>
                                 <!-- @include('menu.htm') -->
                             </div>
@@ -156,7 +179,7 @@
                                 </div>
                                 <div class="text">
                                     <p>Free Support 24/7</p>
-                                    <p class="font-weight-bold number">+01-202-555-0181</p>
+                                    <p class="font-weight-bold number">+(44) 12 234 5678</p>
                                 </div>
                             </div>
                         </div>

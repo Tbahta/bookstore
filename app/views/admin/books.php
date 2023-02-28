@@ -201,7 +201,7 @@
 
                                 <?php 
                                   //print generated table rows from model class through controller 
-                                    echo $tbl_rows;
+                                    echo $tblRows;
                                     // echo $data['table_rows'];
                                 ?>                           
                               
@@ -291,7 +291,7 @@ function collect_data(e){
     data.append("image1",image1.files[0]); 
     data.append("image2",image2.files[0]);     
 
-    data.append("data_type","add_book");
+    data.append("actionType","add_book");
  
 
     //call function and pass data
@@ -310,7 +310,7 @@ function send_data_files(data){
         }
     });
     //send data
-    ajax.open("POST","<?=ROOT?>ajax_books", true);
+    ajax.open("POST","<?=ROOT?>bookAjaxHandler", true);
     ajax.send(data); 
 }
 
@@ -322,11 +322,11 @@ function  handle_results(result)
       {
         console.log(result);
         let obj = JSON.parse(result);
-        if(typeof obj.data_type!=='undefined')
+        if(typeof obj.actionType!=='undefined')
         {
-            if(obj.data_type == "add_book")
+            if(obj.actionType == "add_book")
             {
-                if(obj.message_type == "info")
+                if(obj.messageType == "info")
                 {
                     clearForm();
 
@@ -339,13 +339,13 @@ function  handle_results(result)
                     alert(obj.message);
                 }
 
-            }else if(obj.data_type == "delete_book")
+            }else if(obj.actionType == "delete_book")
             {
                 let book_table_body = document.getElementById("book_table_body");
                 book_table_body.innerHTML = obj.data;
                 // alert(obj.message);
 
-            }else if(obj.data_type == "edit_book")
+            }else if(obj.actionType == "edit_book")
             {   
                 let book_table_body = document.getElementById("book_table_body");
                 book_table_body.innerHTML = obj.data;
@@ -500,7 +500,7 @@ function update_book_data(e){
     data.append("image1",image1.files[0]); 
     data.append("image2",image2.files[0]);   
 
-    data.append("data_type","edit_book");
+    data.append("actionType","edit_book");
 
     //call function and pass data
     send_data_files(data);
@@ -516,7 +516,7 @@ function delete_record(e,id){
 
     let formdata = new FormData();
     formdata.append("id",id);
-    formdata.append("data_type","delete_book");
+    formdata.append("actionType","delete_book");
     send_data_files(formdata);
 
 }

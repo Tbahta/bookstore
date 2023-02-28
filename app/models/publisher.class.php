@@ -1,61 +1,54 @@
 <?php
-/**
- * Undocumented class
- */
+// model class for publisher
 class Publisher{
     
-   
+   // method to create a new publisher
     public function create($data){
 
-       $_SESSION['error']= "";
-       $conn             = Database::db_connect();
-       $pubdata       = [];
+       $_SESSION['error'] = "";
+       $conn              = Database::db_connect();
+       $pubdata           = [];
        $pubdata['publisherName']   = $data->publisherName;
-
+      //check if publisher name is valid
        if(!preg_match("/^[a-zA-Z ]+$/",trim($pubdata['publisherName']))){
            $_SESSION['error'] = "Please enter valid publisher name";
 
        }
-
-       if (!isset($_SESSION['error']) || $_SESSION['error']=="") {
+       if (!isset($_SESSION['error']) || $_SESSION['error'] == "") {
 
             //check if the Publisher already exists
            $sql = "SELECT publisherName FROM publisher where publisherName = :publisherName";
-           $arr['publisherName'] = $pubdata['publisherName'];
-           $check1 = $conn->read($sql,$arr);
+           $list['publisherName'] = $pubdata['publisherName'];
+           $check1 = $conn->read($sql,$list);
            if (is_array($check1) && count($check1) >=1) {
                $_SESSION['error']="ERROR: Duplicate Record";
                return false;
            } 
 
-            //if it gets in here, no duplicate record found
+            //no duplicate record found
             $query = "INSERT INTO publisher (publisherName) VALUES (:publisherName)";
             $check = $conn->write($query,$pubdata);
             if ($check) {
                 return true;
             }
-            $_SESSION['error'] = "Problem writing data to database";
-          
+            $_SESSION['error'] = "Problem writing data to database";     
        }
-
-
     }
  // Function to update Publisher
     public function editPublisher($data){
         
-      $conn                =  Database::newInstance();
-      $arr                 = [];
-      $id                  = (int)$data->id;
-      $arr['id']           = $id;
-      $arr['publisherName']= $data->publisherName;
+      $conn                 =  Database::newInstance();
+      $list                 = [];
+      $id                   = (int)$data->id;
+      $list['id']           = $id;
+      $list['publisherName']= $data->publisherName;
          
-      $query = "UPDATE publisher SET publisherName = :publisherName WHERE id = :id limit 1 ";
-      $conn->write($query,$arr); 
+      $query                = "UPDATE publisher SET publisherName = :publisherName WHERE id = :id limit 1 ";
+      $conn->write($query,$list); 
         
     }
 
     // Function to delete Publisher
-    
     public function deletePublisher($id){
       $conn =  Database::newInstance();
       $id = (int)$id;
@@ -63,14 +56,13 @@ class Publisher{
       $conn->write($query); 
         
     }
-
+    // Function to get all Publishers
     public function getPublishers(){
         $conn =  Database::newInstance();
-       
         return $conn->read("SELECT *FROM publisher order by publisherName asc");        
     }
 
-    
+    // Function to generate table on the fly
     function make_table($publishers){
         $result="";
 
@@ -78,13 +70,12 @@ class Publisher{
           foreach ($publishers as $publisher) {
             $args = $publisher["id"];
             $publisher = (object) $publisher;
-    
-            // $args = $publisher->id. ",'".$publisher->publisherName. "'";
+
             $info = array();
             $info['id'] = $publisher->id;
             $info['publisherName'] = $publisher->publisherName;
 
-             //conver json to string
+             //convert json to string
              $info = json_encode($info);
              $info =  str_replace('"',"'",json_encode($info));
 
@@ -106,10 +97,6 @@ class Publisher{
   
         }
         return $result;
-  
-      }
-
-      // <td><span onclick="disable_record('.$args.')" class ="label label-info label-mini text-secondary p-2 rounded" style="cursor:pointer; background-color:'.$color.'">'.$cat_row->status.'</span></td>
-
-} //end of class
+      }   
+}
 

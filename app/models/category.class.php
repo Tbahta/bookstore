@@ -1,60 +1,46 @@
 <?php
-/**
- * Undocumented class
- */
+// model class for category
 class Category{
     
-   
+   // method to create a new category
     public function create($data){
        $_SESSION['error']="";
        $conn =  Database::db_connect();
-       $arr['category'] = ucwords($data->category);
-   
-       if(!preg_match("/^[a-zA-Z\\/ \\+\\-\\(\\)]+$/",trim($arr['category']))){
-        //    echo "if you see this, the preg_match is bulshiting";
+       $list['category'] = ucwords($data->category);
+      // validate category name 
+       if(!preg_match("/^[a-zA-Z\\/ \\+\\-\\(\\)]+$/",trim($list['category']))){
            $_SESSION['error'] = "Please enter valid category name";
-
        }
        if (!isset($_SESSION['error']) || $_SESSION['error']=="") {
-
             //check if the category already exists
            $sql = "SELECT *FROM category where categoryName = :category";
-           $check1 = $conn->read($sql,$arr);
+           $check1 = $conn->read($sql,$list);
            if (is_array($check1) && count($check1) >=1) {
                $_SESSION['error']="ERROR: Duplicate Record";
                return false;
            } 
 
-            //if it gets in here, no duplicate record found
+            //no duplicate record found
             $query = "INSERT INTO category (categoryName) values(:category)";
-            $check = $conn->write($query,$arr);
+            $check = $conn->write($query,$list);
             if ($check) {
                 return true;
-            }
-          
+            }        
        }
 
-        
-
     }
-
+    // function to edit category
     public function editCategory($id,$categoryname){
 
       $conn =  Database::newInstance();
-      $arr['id'] = (int)$id;
-      $arr['category'] = $categoryname;
+      $list['id'] = (int)$id;
+      $list['category'] = $categoryname;
       $query = "UPDATE category SET categoryName = :category WHERE id = :id limit 1 ";
-      $conn->write($query,$arr); 
-
-        
+      $conn->write($query,$list); 
+    
     }
 
-    /**
-     * Function to delete category
-     * @param int $id
-     * 
-     * @return void
-     */
+    // function to delete category
     public function deleteCategory($id){
       $conn =  Database::newInstance();
       $id = (int)$id;
@@ -62,22 +48,20 @@ class Category{
       $conn->write($query); 
         
     }
-
+    // function to get all categories
     public function getCategories(){
         $conn =  Database::newInstance();
        
         return $conn->read("SELECT *FROM category order by categoryName asc");        
     }
 
-    
+    // function to generate a table on the fly
     function make_table($cats){
         $result="";
 
         if(is_array($cats)){
           foreach ($cats as $cat_row) {
-       
             $cat_row = (object) $cat_row;
-            // $args = $cat_row->id. ",'". $cat_row->status."'";
             $args = $cat_row->id. ",'". $cat_row->categoryName."'";
          
             $result .= "<tr>";
@@ -94,14 +78,10 @@ class Category{
             $result.= "</tr>";
   
           }
-    
-  
         }
         return $result;
   
       }
 
-      // <td><span onclick="disable_record('.$args.')" class ="label label-info label-mini text-secondary p-2 rounded" style="cursor:pointer; background-color:'.$color.'">'.$cat_row->status.'</span></td>
-
-} //end of class
+}
 

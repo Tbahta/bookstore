@@ -1,113 +1,84 @@
 <?php
-/**
- *  Enables adding and removing items to/from the cart  and adding quantity 
- *  Also redirects to proper pages 
- */
+// class to handle cart functionality - adding items to cart, removing items from cart, updating cart, etc
 class Cart extends Controller{
 
- private $redirect_to ="";
-    // private $data ;
-    //defualt method
-    function index($id = ''){
-        $this->set_redicrect();
+    
 
-     
-        $id = esc($id);
+ private $redirect_to ="";
+    function index($id = ''){
+        
+        $this->set_redicrect(); 
+        $id = addDashes($id);
 
         $conn = Database::newInstance();
         $CARTROWS = false;
         $book = $conn->read("SELECT *FROM book where id = :id limit 1",["id"=>$id]);
 
-        //does the book exist [check before adding to acrt]
-        if($book){
-            
-            $book = (object)$book[0]; // just get the single book details 
-         
-            //ADDING ITEMS TO CART 
-            // check if it exists in a cart 
+        //check if the book exists
+        if($book){            
+            $book = (object)$book[0]; 
+            // check if it exists in the cart already
             if(isset($_SESSION['CART'])){
                 $ids = array_column($_SESSION['CART'],'id');
-                if(in_array($book->id, $ids )){ // if already exist -add quantity
-                    $key = array_search($book->id, $ids);//get the key
+                if(in_array($book->id, $ids )){
+                    $key = array_search($book->id, $ids);
                     $_SESSION['CART'][$key]['qty']++;
 
                 }else{
-                    $arr        = [];
-                    $arr['id']  = $book->id;
-                    $arr['title'] =  $book->title;   
-                    $arr['price'] =  $book->price;   
-                    $arr['qty'] = 1;       
-                    $_SESSION['CART'][]  = $arr;
+                    $list        = [];
+                    $list['id']  = $book->id;
+                    $list['title'] =  $book->title;   
+                    $list['price'] =  $book->price;   
+                    $list['qty'] = 1;       
+                    $_SESSION['CART'][]  = $list;
 
                 }
 
-
             }else{ //it means it's not in the cart already
                 
-                $arr        = [];
-                $arr['id']  = $book->id;
-                $arr['title'] =  $book->title;   
-                $arr['price']  = $book->price;
-                $arr['qty'] = 1;       
-                $_SESSION['CART'][]  = $arr;
-               
-
+                $list        = [];
+                $list['id']  = $book->id;
+                $list['title'] =  $book->title;   
+                $list['price']  = $book->price;
+                $list['qty'] = 1;       
+                $_SESSION['CART'][]  = $list;
             }
-            
         }
-        
         $book_ids = [];
         if(isset($_SESSION['CART'])){
             $book_ids = array_column($_SESSION['CART'],'id');
-
             $str_ids = "'" . implode("','", $book_ids) ."'";
-            $CARTROWS = $conn->read("SELECT *FROM book WHERE id in ($str_ids)");
-            // display($CARTROWS);
-            
+            $CARTROWS = $conn->read("SELECT *FROM book WHERE id in ($str_ids)");            
         }
-       
-        // show($ROWS); just as they come from the database
-     
-        if(is_array($CARTROWS)){  //loop through items only if we have items returned from the book table
+            
+        if(is_array($CARTROWS)){  
             foreach ($CARTROWS as $key => $row) {
                 foreach($_SESSION['CART'] as $item){
                     if($row['id'] == $item['id']){
                         $CARTROWS[$key]['cart_qty'] = $item['qty'];
                         break;
-    
                     }
-                }
-                
+                } 
             }
-
         }
       
-    //    show($ROWS);//modified with the above code to hold how many of each are there
-       $data["Page_title"] = "Shopping Cart";
-       $data['CARTROWS'] =  $CARTROWS;
-
-    //    $data['CART_ROWS'] = $CARTROWS;
-        // show($CARTROWS);
-       $_SESSION['CART_ITEMS'] = $CARTROWS;
-    //    show(  $_SESSION['CART_ITEMS']);
-    
-     $this->view("store/cart",$data);
-
-     
+        $data["pageTitle"] = "Shopping Cart";
+        $data['CARTROWS'] =  $CARTROWS;
+        $_SESSION['CART_ITEMS'] = $CARTROWS;;
+        
+        $this->view("store/cart",$data);
    
-    
         
     }
-
+    // add quantity when the plus button is clicked
     public function add_quantity($id = ''){
         $this->set_redicrect();
-       $id = esc($id);
+       $id = addDashes($id);
        if(isset($_SESSION['CART'])){
            foreach($_SESSION['CART'] as $key =>$item){
-            if($item['id'] == $id){ // if item is found (matching id)
-                $_SESSION['CART'][$key]['qty']+= 1;   // add to it
-                
-                // $_SESSION['CART'] = array_values($_SESSION['CART']);
+            if($item['id'] == $id){ // item found
+                $_SESSION['CART'][$key]['qty']+= 1; // increment quantity
+;
                 break;
             }
            }
@@ -116,41 +87,34 @@ class Cart extends Controller{
        $this->redirect();
 
     }
-
+    // subtract quantity when the minus button is clicked
     public function subtract_quantity($id = ''){
         $this->set_redicrect();
-        $id = esc($id);
+        $id = addDashes($id);
        if(isset($_SESSION['CART'])){
            foreach($_SESSION['CART'] as $key =>$item){
-            if($item['id'] == $id){ // if item is found (matching id)
+            if($item['id'] == $id){ // item found 
                 if( $_SESSION['CART'][$key]['qty']>1){
-                    $_SESSION['CART'][$key]['qty']-= 1;
-                     // subtract from it
-                    //  $_SESSION['CART'] = array_values($_SESSION['CART']);
+                    $_SESSION['CART'][$key]['qty']-= 1;//decrement quantity
                     break;
                 }else if($_SESSION['CART'][$key]['qty'] == 1){
-                    // echo 'script> if(alert("Are you sure to remove the last item?")){
-                    //     return
-                    //      }</script>';
-                        // $this->remove($id); //call the delete method
                         break;
                 }
-                break;
-                 
+                break;          
             }
            }
        }
        $this->redirect();
     }
 
-
+    // remove item from cart
     public function remove($id = ''){
         $this->set_redicrect();
-        $id = esc($id);
+        $id = addDashes($id);
         if(isset($_SESSION['CART'])){
             foreach($_SESSION['CART'] as $key =>$item){
-             if($item['id'] == $id){ // if item is found (matching id)
-                unset($_SESSION['CART'][$key]);   // unset - remove
+             if($item['id'] == $id){ // item found 
+                unset($_SESSION['CART'][$key]);   // remove
                 $_SESSION['CART'] = array_values($_SESSION['CART']); 
                  break;
              }
@@ -158,14 +122,8 @@ class Cart extends Controller{
         }
         $this->redirect();
     }
-    
-       
- private function redirect(){
-     
-        
-    header("location:" .ROOT.'cart');
-    //  header("location:" . $this->redirect_to);
-  
+ private function redirect(){        
+    header("location:" .ROOT.'cart');  
  }
 
  private function set_redicrect(){

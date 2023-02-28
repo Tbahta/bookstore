@@ -76,7 +76,7 @@
 
                                 <?php 
                                   //print generated table rows from model class through controller 
-                                    echo $tbl_rows;
+                                    echo $tblRows;
                                     // echo $data['table_rows'];
                                 ?>                           
                               
@@ -106,11 +106,11 @@ function collect_data(e){
     send_data({
         name:name,
         email:email,
-        data_type:"add_new"
+        actionType:"add_new"
         });
 }
 
-//create function will send data to ajax_Category controller
+//create function will send data to Category controller
 function send_data(data ={}){
     var ajax = new XMLHttpRequest();
     ajax.addEventListener('readystatechange', function(){
@@ -120,7 +120,7 @@ function send_data(data ={}){
         }
     });
     //send data
-    ajax.open("POST","<?=ROOT?>ajax_author", true);
+    ajax.open("POST","<?=ROOT?>authorAjaxHandler", true);
     ajax.send(JSON.stringify(data));
 
 
@@ -136,12 +136,12 @@ function  handle_results(result)
 
             let obj= JSON.parse(result);
  ;
-            if(typeof obj.data_type!=='undefined')
+            if(typeof obj.actionType!=='undefined')
             {
-                if(obj.data_type == "add_new")
+                if(obj.actionType == "add_new")
                 {
                     // alert("add reached");
-                    if(obj.message_type=="info")
+                    if(obj.messageType=="info")
                     {
 
                         clearForm();
@@ -156,14 +156,14 @@ function  handle_results(result)
                         alert(obj.message);
                     }
 
-                }else if(obj.data_type == "delete_row")
+                }else if(obj.actionType == "delete_row")
                 {
 
                     let author_table_body = document.querySelector("#author_table_body");
                     author_table_body.innerHTML=obj.data;
                    // alert(obj.message);
 
-                }else if(obj.data_type == "edit_row")
+                }else if(obj.actionType == "edit_row")
                 {
                     let author_table_body = document.querySelector("#author_table_body");
                     author_table_body.innerHTML=obj.data;
@@ -215,7 +215,7 @@ function  handle_results(result)
             id:EDIT_ID,
             name:name,
             email:email,
-            data_type: "edit_row"
+            actionType: "edit_row"
         });
 
     }
@@ -229,7 +229,7 @@ function  handle_results(result)
         }
         send_data({
             id:id,
-            data_type: "delete_row"
+            actionType: "delete_row"
         });
 
     }

@@ -3,14 +3,11 @@
 //this controller class calls the view method of the main "Controller" class to see if corresponding view exists 
 class Success extends  Controller{
 
-    //defualt method
     function index(){
+       $data["pageTitle"] = "Success";
         
-        
-
-       $data["Page_title"] = "Success";
-        
-       //load the home view - > index.php
+       //unset the cart session
+       unset($_SESSION['CART']);
         $this->view("store/success",$data);
       
     }

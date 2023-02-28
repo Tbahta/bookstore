@@ -1,5 +1,5 @@
 <?php
-
+// class to handle shop page
 class Shop extends Controller{
 
     public function index () {
@@ -13,45 +13,40 @@ class Shop extends Controller{
           }
      
          $user = $this->loadModel('user');
-         $user_info = $user->checkLogin();
+         $user_info = $user->loginStatus();
          if(is_array($user_info)){
              $data['user_email'] =   $user_info['email'];
              $data['name']       =   $user_info['name'];
              $data['role']       =   $user_info['role'];
              $data['userid']     =   $user_info['userid'];
              
-         //    display($data['user_email']);
-         //    display($user_info['role']);
-            
          }
- 
+         // get all categories
          $conn =  Database::newInstance();
          $sql= "SELECT *FROM category order by id ";
          $categories = $conn->read($sql,[]);
          if(count($categories) !== 0){
              $data['categories'] = $categories;
-             //display($data['categories']);
          }
  
          //read books to display in home
- 
-         $conn = Database::newInstance();
+          $conn = Database::newInstance();
          if($search){
           
-             $arr['slug'] = "%".$find."%"; 
+             $list['slug'] = "%".$find."%"; 
              $query = "SELECT *FROM book WHERE slug like :slug";
-             $BOOKS = $conn->read($query,$arr);
+             $BOOKS = $conn->read($query,$list);
              $data['item_searched'] = true;
          }else{
-             $BOOKS = $conn->read("SELECT *FROM book"); //limit stuff
+             $BOOKS = $conn->read("SELECT *FROM book"); 
          }
  
          $data['BOOKS'] = $BOOKS;   
  
  
-        $data["Page_title"] = "Shop";
-        $data['search'] = true; //search box will show
-        //load the home view - > index.php
+        $data["pageTitle"] = "Shop";
+        $data['search'] = true;
+        //load the shop view
          $this->view("store/shop",$data);
     }
 

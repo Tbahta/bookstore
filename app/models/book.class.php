@@ -12,7 +12,7 @@ class Book{
 
 
        $book_data    = [];
-       $images = uploadImages(); //custom function in function.pho
+       $images = uploadImage(); //custom function in function.pho
 
     //    foreach($images as $key =>$value){
     //      $book_data[$key] = $value;     //keys are image1 image2 image 2 and values are whatever images added
@@ -56,8 +56,8 @@ class Book{
 
             //check if the book already exists
            $sql = "SELECT isbn FROM book where isbn = :isbn limit 1";
-           $arr['isbn'] = $book_data['isbn'];
-           $check1 = $conn->read($sql,$arr);
+           $list['isbn'] = $book_data['isbn'];
+           $check1 = $conn->read($sql,$list);
            if (is_array($check1) && count($check1) >=1) {
                $_SESSION['error']="ERROR: Duplicate book";
                return false;
@@ -78,33 +78,33 @@ class Book{
 
     public function editBook($data){
       $conn   =  Database::newInstance();
-      $arr    = [];
-      $images = uploadImages();
+      $list    = [];
+      $images = uploadImage();
       foreach($images as $key =>$value){
-        $arr[$key] = $value;
+        $list[$key] = $value;
 
       }
 
        $id = (int)$data->id;
-      $arr['id']          = $id;
-      $arr['title']       = $data->title;
-      $arr['author']      = $data->author;
-      $arr["category"]    = $data->category;
-      $arr["publisher"]   = $data->publisher;
-      $arr["publishdate"] = $data->publishdate;
-      $arr['price']       = $data->price;
-      $arr['category']    = $data->category;
-      $arr['quantity']    = $data->quantity;
-      $arr['isbn']        = $data->isbn;
-      // $arr['image1']      = $images['image1'];
-      // $arr['image2']      = $images['image2'] !== null ? $images['image2'] : null;
-      $arr['slug']         = $this->strtoslug($data->title);
-      $arr['entrydate']        = date("Y-m-d H:i:s");
+      $list['id']          = $id;
+      $list['title']       = $data->title;
+      $list['author']      = $data->author;
+      $list["category"]    = $data->category;
+      $list["publisher"]   = $data->publisher;
+      $list["publishdate"] = $data->publishdate;
+      $list['price']       = $data->price;
+      $list['category']    = $data->category;
+      $list['quantity']    = $data->quantity;
+      $list['isbn']        = $data->isbn;
+      // $list['image1']      = $images['image1'];
+      // $list['image2']      = $images['image2'] !== null ? $images['image2'] : null;
+      $list['slug']         = $this->strtoslug($data->title);
+      $list['entrydate']        = date("Y-m-d H:i:s");
   
       if(!isset($_SESSION['error']) || $_SESSION['error']==""){
         // $query = "UPDATE book SET name = :name,description = :description,price = :price,category = :category,quantity = :quantity,image1 = :image1, image2 = :image2, image3 = :image3, date = :date WHERE id = :id limit 1 ";
         $query = "UPDATE book SET title = :title, author = :author, category = :category,publisher = :publisher, publishdate = :publishdate, price = :price, quantity = :quantity, isbn = :isbn, image1 = :image1, image2 = :image2, slug = :slug , entrydate = :entrydate WHERE id = :id limit 1 ";
-        $conn->write($query,$arr);
+        $conn->write($query,$list);
       }    
 
     }
