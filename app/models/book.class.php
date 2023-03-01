@@ -13,6 +13,7 @@ class Book{
 
        $book_data    = [];
        $images = uploadImage(); //custom function in function.pho
+       print_r($images);die;
 
     //    foreach($images as $key =>$value){
     //      $book_data[$key] = $value;     //keys are image1 image2 image 2 and values are whatever images added

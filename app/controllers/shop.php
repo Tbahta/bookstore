@@ -15,7 +15,7 @@ class Shop extends Controller{
          $user = $this->loadModel('user');
          $user_info = $user->loginStatus();
          if(is_array($user_info)){
-             $data['user_email'] =   $user_info['email'];
+             $data['email']       =   $user_info['email'];
              $data['name']       =   $user_info['name'];
              $data['role']       =   $user_info['role'];
              $data['userid']     =   $user_info['userid'];
@@ -25,7 +25,7 @@ class Shop extends Controller{
          $conn =  Database::newInstance();
          $sql= "SELECT *FROM category order by id ";
          $categories = $conn->read($sql,[]);
-         if(count($categories) !== 0){
+         if(is_array($categories) && count($categories) !== 0){
              $data['categories'] = $categories;
          }
  

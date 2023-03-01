@@ -50,7 +50,7 @@ function validateInput($name, $email, $password,$password2,$phone,$address){
 
 //Function to upload images to upload folder
 function uploadImage(){
-    $size = 15;
+    $size = 10;
     $size = ($size *1024 *1024);
     $allowed[] = "image/jpeg";
     $allowed[] = "image/png";
